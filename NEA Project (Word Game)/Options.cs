@@ -165,11 +165,21 @@ namespace NEA_Project__Word_Game_
             {
                 TimerLength.Enabled = true;
                 TimerLengthLabel.Enabled = true;
+                DynamicTimerOption.Enabled = true;
+
+                if (DynamicTimerOption.Checked)
+                {
+                    TimerIncrement.Enabled = true;
+                    TimerIncrementLabel.Enabled = true;
+                }
             }
             else
             {
                 TimerLength.Enabled = false;
                 TimerLengthLabel.Enabled = false;
+                DynamicTimerOption.Enabled = false;
+                TimerIncrement.Enabled = false;
+                TimerIncrementLabel.Enabled = false;
             }
         }
         private void DynamicTimerOption_CheckedChanged(object sender, EventArgs e)
