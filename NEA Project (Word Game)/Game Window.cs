@@ -6,6 +6,7 @@ namespace NEA_Project__Word_Game_
         public LongWordList longWords;
         public PossibleWordsList possibleWords;
 
+        public int timerIncrement;
         public bool stringModeActive = false;
         public bool dynamicTimerActive = false;
         public bool gameEnded = false;
@@ -147,6 +148,8 @@ namespace NEA_Project__Word_Game_
             {
                 dynamicTimerActive = false;
             }
+
+            timerIncrement = Convert.ToInt32(settings[8]);
         }
         private void OptionsButton_Click(object sender, EventArgs e)
         {
@@ -221,7 +224,7 @@ namespace NEA_Project__Word_Game_
 
                 if (dynamicTimerActive)
                 {
-                    s += Convert.ToInt32(settings[8]);
+                    s += timerIncrement;
                     while (s > 59)
                     {
                         s -= 60;
