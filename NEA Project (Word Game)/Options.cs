@@ -23,10 +23,6 @@ namespace NEA_Project__Word_Game_
             {
                 PromptRootOption.Checked = true;
             }
-            if (settings[1] == "true")
-            {
-                InputRootOption.Checked = true;
-            }
 
             PromptLengthOptionText.Text = settings[2];
             InputLengthOptionText.Text = settings[3];
@@ -63,17 +59,6 @@ namespace NEA_Project__Word_Game_
         public string GetPromptRootOption() // Boolean Option
         {
             if (PromptRootOption.Checked)
-            {
-                return "true";
-            }
-            else
-            {
-                return "false";
-            }
-        }
-        public string GetInputRootOption() // Boolean Option
-        {
-            if (InputRootOption.Checked)
             {
                 return "true";
             }
@@ -227,9 +212,9 @@ namespace NEA_Project__Word_Game_
                 }
             }
 
-            if (Convert.ToInt32(PromptLengthOptionText.Text) <= 0)
+            if (Convert.ToInt32(PromptLengthOptionText.Text) < 5)
             {
-                ErrorTextPromptLength.Text = "Value must be greater than 0";
+                ErrorTextPromptLength.Text = "Value must be greater than 5";
                 return false;
             }
             else if (Convert.ToInt32(PromptLengthOptionText.Text) > maxWordLength)

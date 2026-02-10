@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             PromptRootOption = new CheckBox();
-            InputRootOption = new CheckBox();
             label1 = new Label();
             label2 = new Label();
             EnableTimerOption = new CheckBox();
@@ -54,22 +53,12 @@
             // PromptRootOption
             // 
             PromptRootOption.AutoSize = true;
-            PromptRootOption.Location = new Point(35, 80);
+            PromptRootOption.Location = new Point(35, 79);
             PromptRootOption.Name = "PromptRootOption";
             PromptRootOption.Size = new Size(327, 24);
             PromptRootOption.TabIndex = 0;
             PromptRootOption.Text = "Limit randomised prompt to only root words";
             PromptRootOption.UseVisualStyleBackColor = true;
-            // 
-            // InputRootOption
-            // 
-            InputRootOption.AutoSize = true;
-            InputRootOption.Location = new Point(35, 110);
-            InputRootOption.Name = "InputRootOption";
-            InputRootOption.Size = new Size(272, 24);
-            InputRootOption.TabIndex = 1;
-            InputRootOption.Text = "Limit word inputs to only root words";
-            InputRootOption.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -85,7 +74,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Verdana", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(35, 225);
+            label2.Location = new Point(35, 190);
             label2.Name = "label2";
             label2.Size = new Size(199, 31);
             label2.TabIndex = 3;
@@ -94,7 +83,7 @@
             // EnableTimerOption
             // 
             EnableTimerOption.AutoSize = true;
-            EnableTimerOption.Location = new Point(35, 272);
+            EnableTimerOption.Location = new Point(35, 237);
             EnableTimerOption.Name = "EnableTimerOption";
             EnableTimerOption.Size = new Size(115, 24);
             EnableTimerOption.TabIndex = 4;
@@ -107,7 +96,7 @@
             TimerLength.BorderStyle = BorderStyle.FixedSingle;
             TimerLength.Enabled = false;
             TimerLength.Font = new Font("Segoe UI", 8F);
-            TimerLength.Location = new Point(54, 300);
+            TimerLength.Location = new Point(54, 265);
             TimerLength.Name = "TimerLength";
             TimerLength.Size = new Size(53, 25);
             TimerLength.TabIndex = 5;
@@ -118,7 +107,7 @@
             // 
             TimerLengthLabel.AutoSize = true;
             TimerLengthLabel.Enabled = false;
-            TimerLengthLabel.Location = new Point(111, 302);
+            TimerLengthLabel.Location = new Point(111, 267);
             TimerLengthLabel.Name = "TimerLengthLabel";
             TimerLengthLabel.Size = new Size(125, 20);
             TimerLengthLabel.TabIndex = 6;
@@ -127,7 +116,7 @@
             // StringModeOption
             // 
             StringModeOption.AutoSize = true;
-            StringModeOption.Location = new Point(35, 392);
+            StringModeOption.Location = new Point(35, 357);
             StringModeOption.Name = "StringModeOption";
             StringModeOption.Size = new Size(174, 24);
             StringModeOption.TabIndex = 7;
@@ -137,7 +126,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(33, 141);
+            label4.Location = new Point(33, 110);
             label4.Name = "label4";
             label4.Size = new Size(175, 20);
             label4.TabIndex = 8;
@@ -146,7 +135,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(33, 169);
+            label5.Location = new Point(33, 141);
             label5.Name = "label5";
             label5.Size = new Size(159, 20);
             label5.TabIndex = 9;
@@ -156,7 +145,7 @@
             // 
             PromptLengthOptionText.BorderStyle = BorderStyle.FixedSingle;
             PromptLengthOptionText.Font = new Font("Segoe UI", 7F);
-            PromptLengthOptionText.Location = new Point(214, 141);
+            PromptLengthOptionText.Location = new Point(214, 110);
             PromptLengthOptionText.Name = "PromptLengthOptionText";
             PromptLengthOptionText.Size = new Size(34, 23);
             PromptLengthOptionText.TabIndex = 10;
@@ -167,7 +156,7 @@
             // 
             InputLengthOptionText.BorderStyle = BorderStyle.FixedSingle;
             InputLengthOptionText.Font = new Font("Segoe UI", 7F);
-            InputLengthOptionText.Location = new Point(196, 169);
+            InputLengthOptionText.Location = new Point(196, 141);
             InputLengthOptionText.Name = "InputLengthOptionText";
             InputLengthOptionText.Size = new Size(34, 23);
             InputLengthOptionText.TabIndex = 11;
@@ -181,7 +170,7 @@
             SaveButton.FlatStyle = FlatStyle.Popup;
             SaveButton.Font = new Font("Segoe UI", 11F);
             SaveButton.ForeColor = Color.White;
-            SaveButton.Location = new Point(33, 432);
+            SaveButton.Location = new Point(33, 397);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(143, 42);
             SaveButton.TabIndex = 15;
@@ -195,7 +184,7 @@
             CancelButton.FlatStyle = FlatStyle.Popup;
             CancelButton.Font = new Font("Segoe UI", 11F);
             CancelButton.ForeColor = Color.Black;
-            CancelButton.Location = new Point(186, 432);
+            CancelButton.Location = new Point(186, 397);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(95, 42);
             CancelButton.TabIndex = 16;
@@ -207,7 +196,7 @@
             ErrorTextPromptLength.AutoSize = true;
             ErrorTextPromptLength.Font = new Font("Segoe UI", 5F);
             ErrorTextPromptLength.ForeColor = Color.Red;
-            ErrorTextPromptLength.Location = new Point(254, 147);
+            ErrorTextPromptLength.Location = new Point(254, 116);
             ErrorTextPromptLength.Name = "ErrorTextPromptLength";
             ErrorTextPromptLength.Size = new Size(0, 12);
             ErrorTextPromptLength.TabIndex = 17;
@@ -217,7 +206,7 @@
             ErrorTextInputLength.AutoSize = true;
             ErrorTextInputLength.Font = new Font("Segoe UI", 5F);
             ErrorTextInputLength.ForeColor = Color.Red;
-            ErrorTextInputLength.Location = new Point(236, 175);
+            ErrorTextInputLength.Location = new Point(236, 147);
             ErrorTextInputLength.Name = "ErrorTextInputLength";
             ErrorTextInputLength.Size = new Size(0, 12);
             ErrorTextInputLength.TabIndex = 18;
@@ -227,7 +216,7 @@
             ErrorTextTimerLength.AutoSize = true;
             ErrorTextTimerLength.Font = new Font("Segoe UI", 5F);
             ErrorTextTimerLength.ForeColor = Color.Red;
-            ErrorTextTimerLength.Location = new Point(242, 307);
+            ErrorTextTimerLength.Location = new Point(242, 272);
             ErrorTextTimerLength.Name = "ErrorTextTimerLength";
             ErrorTextTimerLength.Size = new Size(0, 12);
             ErrorTextTimerLength.TabIndex = 19;
@@ -235,11 +224,11 @@
             // DynamicTimerOption
             // 
             DynamicTimerOption.AutoSize = true;
-            DynamicTimerOption.Location = new Point(33, 333);
+            DynamicTimerOption.Location = new Point(33, 298);
             DynamicTimerOption.Name = "DynamicTimerOption";
-            DynamicTimerOption.Size = new Size(131, 24);
+            DynamicTimerOption.Size = new Size(174, 24);
             DynamicTimerOption.TabIndex = 20;
-            DynamicTimerOption.Text = "Dynamic Timer";
+            DynamicTimerOption.Text = "Dynamic Timer Mode";
             DynamicTimerOption.UseVisualStyleBackColor = true;
             DynamicTimerOption.CheckedChanged += DynamicTimerOption_CheckedChanged;
             // 
@@ -248,7 +237,7 @@
             TimerIncrement.BorderStyle = BorderStyle.FixedSingle;
             TimerIncrement.Enabled = false;
             TimerIncrement.Font = new Font("Segoe UI", 8F);
-            TimerIncrement.Location = new Point(54, 361);
+            TimerIncrement.Location = new Point(54, 326);
             TimerIncrement.Name = "TimerIncrement";
             TimerIncrement.Size = new Size(53, 25);
             TimerIncrement.TabIndex = 21;
@@ -259,7 +248,7 @@
             // 
             TimerIncrementLabel.AutoSize = true;
             TimerIncrementLabel.Enabled = false;
-            TimerIncrementLabel.Location = new Point(113, 363);
+            TimerIncrementLabel.Location = new Point(113, 328);
             TimerIncrementLabel.Name = "TimerIncrementLabel";
             TimerIncrementLabel.Size = new Size(200, 20);
             TimerIncrementLabel.TabIndex = 22;
@@ -270,7 +259,7 @@
             ErrorTextTimerIncrement.AutoSize = true;
             ErrorTextTimerIncrement.Font = new Font("Segoe UI", 5F);
             ErrorTextTimerIncrement.ForeColor = Color.Red;
-            ErrorTextTimerIncrement.Location = new Point(313, 368);
+            ErrorTextTimerIncrement.Location = new Point(313, 333);
             ErrorTextTimerIncrement.Name = "ErrorTextTimerIncrement";
             ErrorTextTimerIncrement.Size = new Size(0, 12);
             ErrorTextTimerIncrement.TabIndex = 23;
@@ -279,7 +268,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(477, 534);
+            ClientSize = new Size(477, 483);
             Controls.Add(ErrorTextTimerIncrement);
             Controls.Add(TimerIncrementLabel);
             Controls.Add(TimerIncrement);
@@ -299,7 +288,6 @@
             Controls.Add(EnableTimerOption);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(InputRootOption);
             Controls.Add(PromptRootOption);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Options";
@@ -311,7 +299,6 @@
         #endregion
 
         private CheckBox PromptRootOption;
-        private CheckBox InputRootOption;
         private Label label1;
         private Label label2;
         private CheckBox EnableTimerOption;

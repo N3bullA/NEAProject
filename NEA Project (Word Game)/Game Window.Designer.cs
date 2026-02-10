@@ -98,7 +98,7 @@
             // 
             // OptionsButton
             // 
-            OptionsButton.Location = new Point(34, 129);
+            OptionsButton.Location = new Point(34, 126);
             OptionsButton.Name = "OptionsButton";
             OptionsButton.Size = new Size(89, 29);
             OptionsButton.TabIndex = 11;
@@ -178,7 +178,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1167, 578);
+            ClientSize = new Size(577, 578);
             Controls.Add(TimerText);
             Controls.Add(ScoreDisplay);
             Controls.Add(label2);

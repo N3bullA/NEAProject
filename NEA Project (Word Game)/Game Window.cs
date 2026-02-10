@@ -30,7 +30,7 @@ namespace NEA_Project__Word_Game_
             tempList.Clear();
 
             allWords = new List("Dictionary.txt");
-            longWords = new LongWordList("Dictionary.txt", Convert.ToInt32(settings[2]));
+            longWords = new LongWordList("Dictionary.txt", settings[0], Convert.ToInt32(settings[2]));
 
             if (settings[4] == "true")
             {
@@ -131,14 +131,13 @@ namespace NEA_Project__Word_Game_
             if (input == DialogResult.Yes)
             {
                 settings[0] = OptionsForm.GetPromptRootOption();
-                settings[1] = OptionsForm.GetInputRootOption();
 
                 if (settings[2] != OptionsForm.GetMinPromptLength())
                 {
                     if (InputValidation(OptionsForm.GetMinPromptLength()))
                     {
                         settings[2] = OptionsForm.GetMinPromptLength();
-                        longWords = new LongWordList("Dictionary.txt", Convert.ToInt32(settings[2]));
+                        longWords = new LongWordList("Dictionary.txt", settings[0], Convert.ToInt32(settings[2]));
                     }
                     else
                     {
