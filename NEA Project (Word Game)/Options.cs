@@ -15,9 +15,11 @@ namespace NEA_Project__Word_Game_
         int maxWordLength;
         bool closeForm = false;
 
-        public Options(string[] settings)
+        public Options(string[] settings, int maximumWordLength)
         {
             InitializeComponent();
+
+            maxWordLength = maximumWordLength;
 
             if (settings[0] == "true")
             {

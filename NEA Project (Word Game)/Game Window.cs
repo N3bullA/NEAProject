@@ -150,7 +150,7 @@ namespace NEA_Project__Word_Game_
         }
         private void OptionsButton_Click(object sender, EventArgs e)
         {
-            Options OptionsForm = new Options(settings);
+            Options OptionsForm = new Options(settings, longWords.GetMaximumWordLength());
             DialogResult input = OptionsForm.ShowDialog();
             if (input == DialogResult.Yes)
             {
@@ -436,6 +436,7 @@ namespace NEA_Project__Word_Game_
                 ResetButton.Text = "New Game";
                 DeleteWordButton.Enabled = false;
                 DeleteWordButton.Visible = false;
+                ErrorText.Text = "";
 
                 SaveButton.Text = "What did I miss?";
                 EndOfGamePromptText.Text = PromptLabel.Text;
