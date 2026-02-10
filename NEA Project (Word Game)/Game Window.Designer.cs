@@ -50,9 +50,9 @@
             // 
             // ResetButton
             // 
-            ResetButton.Location = new Point(34, 92);
+            ResetButton.Location = new Point(24, 92);
             ResetButton.Name = "ResetButton";
-            ResetButton.Size = new Size(89, 29);
+            ResetButton.Size = new Size(109, 29);
             ResetButton.TabIndex = 0;
             ResetButton.Text = "Reset";
             ResetButton.UseVisualStyleBackColor = true;
@@ -106,9 +106,9 @@
             // 
             // OptionsButton
             // 
-            OptionsButton.Location = new Point(34, 124);
+            OptionsButton.Location = new Point(24, 124);
             OptionsButton.Name = "OptionsButton";
-            OptionsButton.Size = new Size(89, 29);
+            OptionsButton.Size = new Size(109, 29);
             OptionsButton.TabIndex = 11;
             OptionsButton.Text = "Options";
             OptionsButton.UseVisualStyleBackColor = true;
@@ -185,18 +185,18 @@
             // 
             // DefinitionButton
             // 
-            DefinitionButton.Location = new Point(34, 170);
+            DefinitionButton.Location = new Point(24, 170);
             DefinitionButton.Name = "DefinitionButton";
-            DefinitionButton.Size = new Size(89, 29);
+            DefinitionButton.Size = new Size(109, 29);
             DefinitionButton.TabIndex = 18;
             DefinitionButton.Text = "Definition";
             DefinitionButton.UseVisualStyleBackColor = true;
             // 
             // DeleteWordButton
             // 
-            DeleteWordButton.Location = new Point(34, 202);
+            DeleteWordButton.Location = new Point(24, 202);
             DeleteWordButton.Name = "DeleteWordButton";
-            DeleteWordButton.Size = new Size(89, 29);
+            DeleteWordButton.Size = new Size(109, 29);
             DeleteWordButton.TabIndex = 19;
             DeleteWordButton.Text = "Delete";
             DeleteWordButton.UseVisualStyleBackColor = true;

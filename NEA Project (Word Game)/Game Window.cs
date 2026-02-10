@@ -133,7 +133,9 @@ namespace NEA_Project__Word_Game_
                 GuessBox.Enabled = true;
                 GuessBox.Visible = true;
                 EnterButton.Enabled = true;
-                EnterButton.Visible = true;               
+                EnterButton.Visible = true;          
+                DeleteWordButton.Enabled = true;
+                DeleteWordButton.Visible = true;
                 ErrorText.Text = string.Empty;
             }
 
@@ -432,6 +434,8 @@ namespace NEA_Project__Word_Game_
                 EnterButton.Visible = false;
                 GuessBox.Text = "";
                 ResetButton.Text = "New Game";
+                DeleteWordButton.Enabled = false;
+                DeleteWordButton.Visible = false;
 
                 SaveButton.Text = "What did I miss?";
                 EndOfGamePromptText.Text = PromptLabel.Text;
