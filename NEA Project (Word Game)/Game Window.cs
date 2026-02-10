@@ -8,6 +8,7 @@ namespace NEA_Project__Word_Game_
 
         public bool stringModeActive = false;
         public bool dynamicTimerActive = false;
+        public bool gameEnded = false;
 
         public int s;
         public int m;
@@ -84,7 +85,16 @@ namespace NEA_Project__Word_Game_
                 GuessBox.Text = string.Empty;
 
                 longWords.RollRandomIndex();
+
+                TopLabel.Text = "How many words can you make with: ";                
                 PromptLabel.Text = longWords.GetWord(longWords.GetIndex());
+                UsingTheWord.Text = "";
+                EndOfGamePromptText.Text = "";
+                ResetButton.Text = "Reset";
+                SaveButton.Text = "Finish Game";
+
+                gameEnded = false;
+
                 possibleWords = new PossibleWordsList("Dictionary.txt", longWords.GetWord(longWords.GetIndex()), stringModeActive);
 
                 score = 0;
@@ -118,7 +128,9 @@ namespace NEA_Project__Word_Game_
                 }
 
                 GuessBox.Enabled = true;
+                GuessBox.Visible = true;
                 EnterButton.Enabled = true;
+                EnterButton.Visible = true;               
                 ErrorText.Text = string.Empty;
             }
 
@@ -377,5 +389,53 @@ namespace NEA_Project__Word_Game_
             return false;
 
         } // Binary Search Algorithm
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            if (gameEnded)
+            {
+                string[] missedWords;
+                List<string> templist = new List<string>();
+                bool addWord = true;
+
+                for (int i = 0; i < possibleWords.GetWordCount(); i++)
+                {
+                    for (int j = 0; j < score; j++)
+                    {
+                        if (possibleWords.GetWord(i) == wordList.Items[j].ToString())
+                        {
+                            addWord = false;
+                        }
+                    }
+                    if (addWord)
+                    {
+                        templist.Add(possibleWords.GetWord(i));
+                    }
+                    addWord = true;
+                }
+
+                missedWords = templist.ToArray();
+                WhatDidIMiss missedWordsForm = new WhatDidIMiss(missedWords);
+                missedWordsForm.ShowDialog();
+            }
+            else
+            {
+                gameEnded = true;
+
+                Timer.Stop();
+                GuessBox.Enabled = false;
+                GuessBox.Visible = false;
+                EnterButton.Enabled = false;
+                EnterButton.Visible = false;
+                GuessBox.Text = "";
+                ResetButton.Text = "New Game";
+
+                SaveButton.Text = "What did I miss?";
+                EndOfGamePromptText.Text = PromptLabel.Text;
+                TopLabel.Text = "Congratulations! You have named";
+                PromptLabel.Text = $"{score.ToString()} / {possibleWords.GetWordCount()} words";
+                UsingTheWord.Text = "using the word";
+            }
+        }
     }
 }

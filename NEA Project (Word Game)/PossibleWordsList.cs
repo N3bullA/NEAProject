@@ -14,7 +14,7 @@ namespace NEA_Project__Word_Game_
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (PossibleWord(line, prompt))
+                    if (PossibleWord(line, prompt) && line.Length >= 3)
                     {
                         tempList.Add(line);
                     }

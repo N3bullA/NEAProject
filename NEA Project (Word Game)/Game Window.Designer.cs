@@ -35,18 +35,22 @@
             PromptLabel = new Label();
             EnterButton = new Button();
             OptionsButton = new Button();
-            label1 = new Label();
+            TopLabel = new Label();
             ErrorText = new Label();
             SaveButton = new Button();
             label2 = new Label();
             ScoreDisplay = new Label();
             Timer = new System.Windows.Forms.Timer(components);
             TimerText = new Label();
+            DefinitionButton = new Button();
+            DeleteWordButton = new Button();
+            UsingTheWord = new Label();
+            EndOfGamePromptText = new Label();
             SuspendLayout();
             // 
             // ResetButton
             // 
-            ResetButton.Location = new Point(34, 94);
+            ResetButton.Location = new Point(34, 92);
             ResetButton.Name = "ResetButton";
             ResetButton.Size = new Size(89, 29);
             ResetButton.TabIndex = 0;
@@ -102,7 +106,7 @@
             // 
             // OptionsButton
             // 
-            OptionsButton.Location = new Point(34, 126);
+            OptionsButton.Location = new Point(34, 124);
             OptionsButton.Name = "OptionsButton";
             OptionsButton.Size = new Size(89, 29);
             OptionsButton.TabIndex = 11;
@@ -110,15 +114,15 @@
             OptionsButton.UseVisualStyleBackColor = true;
             OptionsButton.Click += OptionsButton_Click;
             // 
-            // label1
+            // TopLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F);
-            label1.Location = new Point(156, 27);
-            label1.Name = "label1";
-            label1.Size = new Size(254, 20);
-            label1.TabIndex = 12;
-            label1.Text = "How many words can you make with:";
+            TopLabel.AutoSize = true;
+            TopLabel.Font = new Font("Segoe UI", 9F);
+            TopLabel.Location = new Point(156, 27);
+            TopLabel.Name = "TopLabel";
+            TopLabel.Size = new Size(254, 20);
+            TopLabel.TabIndex = 12;
+            TopLabel.Text = "How many words can you make with:";
             // 
             // ErrorText
             // 
@@ -140,8 +144,9 @@
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(165, 42);
             SaveButton.TabIndex = 14;
-            SaveButton.Text = "Finish and Save";
+            SaveButton.Text = "Finish Game";
             SaveButton.UseVisualStyleBackColor = false;
+            SaveButton.Click += SaveButton_Click;
             // 
             // label2
             // 
@@ -178,17 +183,58 @@
             TimerText.TextAlign = ContentAlignment.MiddleCenter;
             TimerText.Visible = false;
             // 
+            // DefinitionButton
+            // 
+            DefinitionButton.Location = new Point(34, 170);
+            DefinitionButton.Name = "DefinitionButton";
+            DefinitionButton.Size = new Size(89, 29);
+            DefinitionButton.TabIndex = 18;
+            DefinitionButton.Text = "Definition";
+            DefinitionButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteWordButton
+            // 
+            DeleteWordButton.Location = new Point(34, 202);
+            DeleteWordButton.Name = "DeleteWordButton";
+            DeleteWordButton.Size = new Size(89, 29);
+            DeleteWordButton.TabIndex = 19;
+            DeleteWordButton.Text = "Delete";
+            DeleteWordButton.UseVisualStyleBackColor = true;
+            // 
+            // UsingTheWord
+            // 
+            UsingTheWord.AutoSize = true;
+            UsingTheWord.Font = new Font("Segoe UI", 9F);
+            UsingTheWord.Location = new Point(155, 88);
+            UsingTheWord.Name = "UsingTheWord";
+            UsingTheWord.Size = new Size(0, 20);
+            UsingTheWord.TabIndex = 20;
+            // 
+            // EndOfGamePromptText
+            // 
+            EndOfGamePromptText.AutoSize = true;
+            EndOfGamePromptText.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            EndOfGamePromptText.Location = new Point(154, 107);
+            EndOfGamePromptText.Name = "EndOfGamePromptText";
+            EndOfGamePromptText.Size = new Size(0, 35);
+            EndOfGamePromptText.TabIndex = 21;
+            EndOfGamePromptText.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // GameWindow
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(577, 578);
+            ClientSize = new Size(565, 578);
+            Controls.Add(EndOfGamePromptText);
+            Controls.Add(UsingTheWord);
+            Controls.Add(DeleteWordButton);
+            Controls.Add(DefinitionButton);
             Controls.Add(TimerText);
             Controls.Add(ScoreDisplay);
             Controls.Add(label2);
             Controls.Add(SaveButton);
             Controls.Add(ErrorText);
-            Controls.Add(label1);
+            Controls.Add(TopLabel);
             Controls.Add(OptionsButton);
             Controls.Add(EnterButton);
             Controls.Add(PromptLabel);
@@ -211,12 +257,16 @@
         private Label PromptLabel;
         private Button EnterButton;
         private Button OptionsButton;
-        private Label label1;
+        private Label TopLabel;
         private Label ErrorText;
         private Button SaveButton;
         private Label label2;
         private Label ScoreDisplay;
         private System.Windows.Forms.Timer Timer;
         private Label TimerText;
+        private Button DefinitionButton;
+        private Button DeleteWordButton;
+        private Label UsingTheWord;
+        private Label EndOfGamePromptText;
     }
 }
