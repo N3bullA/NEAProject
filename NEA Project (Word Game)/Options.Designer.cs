@@ -55,9 +55,9 @@
             PromptRootOption.AutoSize = true;
             PromptRootOption.Location = new Point(35, 79);
             PromptRootOption.Name = "PromptRootOption";
-            PromptRootOption.Size = new Size(327, 24);
+            PromptRootOption.Size = new Size(385, 24);
             PromptRootOption.TabIndex = 0;
-            PromptRootOption.Text = "Limit randomised prompt to only root words";
+            PromptRootOption.Text = "Limit randomised prompt to exclude prefixes/suffixes";
             PromptRootOption.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -170,7 +170,7 @@
             SaveButton.FlatStyle = FlatStyle.Popup;
             SaveButton.Font = new Font("Segoe UI", 11F);
             SaveButton.ForeColor = Color.White;
-            SaveButton.Location = new Point(33, 397);
+            SaveButton.Location = new Point(33, 407);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(143, 42);
             SaveButton.TabIndex = 15;
@@ -184,7 +184,7 @@
             CancelButton.FlatStyle = FlatStyle.Popup;
             CancelButton.Font = new Font("Segoe UI", 11F);
             CancelButton.ForeColor = Color.Black;
-            CancelButton.Location = new Point(186, 397);
+            CancelButton.Location = new Point(186, 407);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(95, 42);
             CancelButton.TabIndex = 16;
@@ -268,7 +268,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(477, 483);
+            ClientSize = new Size(477, 489);
             Controls.Add(ErrorTextTimerIncrement);
             Controls.Add(TimerIncrementLabel);
             Controls.Add(TimerIncrement);
