@@ -30,6 +30,7 @@ namespace NEA_Project__Word_Game_
                     }                  
                 }
                 words = tempList.ToArray();
+                tempList.Clear();
             }
 
             MergeSort(words);

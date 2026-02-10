@@ -69,11 +69,15 @@
             // 
             wordList.ColumnWidth = 80;
             wordList.FormattingEnabled = true;
+            wordList.HorizontalExtent = 50;
+            wordList.HorizontalScrollbar = true;
             wordList.Items.AddRange(new object[] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" });
             wordList.Location = new Point(156, 170);
             wordList.MultiColumn = true;
             wordList.Name = "wordList";
-            wordList.Size = new Size(248, 224);
+            wordList.ScrollAlwaysVisible = true;
+            wordList.Size = new Size(248, 264);
+            wordList.Sorted = true;
             wordList.TabIndex = 0;
             // 
             // PromptLabel
@@ -132,7 +136,7 @@
             SaveButton.FlatStyle = FlatStyle.Popup;
             SaveButton.Font = new Font("Segoe UI", 11F);
             SaveButton.ForeColor = Color.White;
-            SaveButton.Location = new Point(194, 453);
+            SaveButton.Location = new Point(192, 488);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(165, 42);
             SaveButton.TabIndex = 14;
@@ -142,7 +146,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(194, 419);
+            label2.Location = new Point(192, 454);
             label2.Name = "label2";
             label2.Size = new Size(82, 20);
             label2.TabIndex = 15;
@@ -152,7 +156,7 @@
             // 
             ScoreDisplay.AutoSize = true;
             ScoreDisplay.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ScoreDisplay.Location = new Point(279, 419);
+            ScoreDisplay.Location = new Point(277, 454);
             ScoreDisplay.Name = "ScoreDisplay";
             ScoreDisplay.Size = new Size(0, 20);
             ScoreDisplay.TabIndex = 16;

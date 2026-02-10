@@ -50,7 +50,6 @@ namespace NEA_Project__Word_Game_
 
             return characters;
         }
-
         public void RollRandomIndex()
         {
             index = rnd.Next(0, words.Length);

@@ -4,6 +4,8 @@ namespace NEA_Project__Word_Game_
     {
         public List allWords;
         public LongWordList longWords;
+        public PossibleWordsList possibleWords;
+
         public bool stringModeActive = false;
         public bool dynamicTimerActive = false;
 
@@ -44,6 +46,7 @@ namespace NEA_Project__Word_Game_
             if (settings[6] == "true")
             {
                 stringModeActive = true;
+                wordList.Sorted = false;
             }
         }
         public void GameWindow_Load(object sender, EventArgs e)
@@ -82,9 +85,22 @@ namespace NEA_Project__Word_Game_
 
                 longWords.RollRandomIndex();
                 PromptLabel.Text = longWords.GetWord(longWords.GetIndex());
+                possibleWords = new PossibleWordsList("Dictionary.txt", longWords.GetWord(longWords.GetIndex()), stringModeActive);
 
                 score = 0;
-                ScoreDisplay.Text = score.ToString();
+                if (settings[6] == "true")
+                {
+                    stringModeActive = true;
+                    wordList.Sorted = false;
+                    ScoreDisplay.Text = score.ToString();
+                }
+                else
+                {
+                    stringModeActive = false;
+                    wordList.Sorted = true;
+                    ScoreDisplay.Text = $"{score.ToString()} / {possibleWords.GetWordCount()}";
+                }
+
                 if (settings[4] == "true")
                 {
                     s = Convert.ToInt32(settings[5]) % 60;
@@ -104,15 +120,6 @@ namespace NEA_Project__Word_Game_
                 GuessBox.Enabled = true;
                 EnterButton.Enabled = true;
                 ErrorText.Text = string.Empty;
-            }
-
-            if (settings[6] == "true")
-            {
-                stringModeActive = true;
-            }
-            else
-            {
-                stringModeActive = false;
             }
 
             if (settings[7] == "true")
@@ -185,7 +192,15 @@ namespace NEA_Project__Word_Game_
                 ErrorText.Text = string.Empty;
                 wordList.Items.Add(GuessBox.Text.ToLower());
                 score++;
-                ScoreDisplay.Text = score.ToString();
+
+                if (stringModeActive)
+                {
+                    ScoreDisplay.Text = score.ToString();
+                }
+                else
+                {
+                    ScoreDisplay.Text = $"{score.ToString()} / {possibleWords.GetWordCount()}";
+                }
 
                 if (dynamicTimerActive)
                 {
