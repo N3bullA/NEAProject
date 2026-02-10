@@ -45,6 +45,13 @@ namespace NEA_Project__Word_Game_
                 StringModeOption.Checked = true;
             }
 
+            if (settings[7] == "true")
+            {
+                DynamicTimerOption.Checked = true;
+            }
+
+            TimerIncrement.Text = settings[8];
+
             maxWordLength = maximumWordLength;
 
             ErrorTextPromptLength.Text = "";
@@ -109,6 +116,21 @@ namespace NEA_Project__Word_Game_
                 return "false";
             }
         } // Boolean Option
+        public string GetDynamicTimerOption()
+        {
+            if (DynamicTimerOption.Checked)
+            {
+                return "true";
+            }
+            else
+            {
+                return "false";
+            }
+        }
+        public string GetTimerIncrement()
+        {
+            return TimerIncrement.Text;
+        }
 
         public void SetPromptLengthError(bool valid)
         {
@@ -123,26 +145,19 @@ namespace NEA_Project__Word_Game_
         }
         private void PromptLengthOptionText_TextChanged(object sender, EventArgs e)
         {
-            if (PromptLengthOptionValidation() && InputLengthOptionValidation() && TimerLengthOptionValidation())
-            {
-                SaveButton.DialogResult = DialogResult.Yes;
-            }
-            else
-            {
-                SaveButton.DialogResult = DialogResult.None;
-            }
+            AllInputValidation();
         }
-
         private void InputLengthOptionText_TextChanged(object sender, EventArgs e)
         {
-            if (PromptLengthOptionValidation() && InputLengthOptionValidation() && TimerLengthOptionValidation())
-            {
-                SaveButton.DialogResult = DialogResult.Yes;
-            }
-            else
-            {
-                SaveButton.DialogResult = DialogResult.None;
-            }
+            AllInputValidation();
+        }
+        private void TimerLength_TextChanged(object sender, EventArgs e)
+        {
+            AllInputValidation();
+        }
+        private void TimerIncrement_TextChanged(object sender, EventArgs e)
+        {
+            AllInputValidation();
         }
         private void EnableTimerOption_CheckedChanged(object sender, EventArgs e)
         {
@@ -157,23 +172,19 @@ namespace NEA_Project__Word_Game_
                 TimerLengthLabel.Enabled = false;
             }
         }
-        private void TimerLength_TextChanged(object sender, EventArgs e)
+        private void DynamicTimerOption_CheckedChanged(object sender, EventArgs e)
         {
-            if (PromptLengthOptionValidation() && InputLengthOptionValidation() && TimerLengthOptionValidation())
+            if (DynamicTimerOption.Checked)
             {
-                SaveButton.DialogResult = DialogResult.Yes;
+                TimerIncrement.Enabled = true;
+                TimerIncrementLabel.Enabled = true;
             }
             else
             {
-                SaveButton.DialogResult = DialogResult.None;
+                TimerIncrement.Enabled = false;
+                TimerIncrementLabel.Enabled = false;
             }
         }
-
-        public bool CloseForm()
-        {
-            return closeForm;
-        }
-
         public bool NumbersOnly(string text)
         {
             for (int i = 0; i < text.Length; i++)
@@ -185,7 +196,6 @@ namespace NEA_Project__Word_Game_
             }
             return true;
         }
-
         public bool PromptLengthOptionValidation()
         {
             if (!NumbersOnly(PromptLengthOptionText.Text))
@@ -223,7 +233,6 @@ namespace NEA_Project__Word_Game_
                 return true;
             }
         }
-
         public bool InputLengthOptionValidation()
         {
             if (!NumbersOnly(InputLengthOptionText.Text))
@@ -244,7 +253,6 @@ namespace NEA_Project__Word_Game_
                     return false;
                 }
             }
-
             if (Convert.ToInt32(InputLengthOptionText.Text) <= 0)
             {
                 ErrorTextInputLength.Text = "Value must be greater than 0";
@@ -261,7 +269,6 @@ namespace NEA_Project__Word_Game_
                 return true;
             }
         }
-
         public bool TimerLengthOptionValidation()
         {
             if (!NumbersOnly(TimerLength.Text))
@@ -285,9 +292,39 @@ namespace NEA_Project__Word_Game_
                 return true;
             }
         }
-
-        
-
-
+        public bool TimerIncrementOptionValidation()
+        {
+            if (!NumbersOnly(TimerIncrement.Text))
+            {
+                ErrorTextTimerIncrement.Text = "Value must only contain numbers";
+                return false;
+            }
+            else if (TimerIncrement.Text.Length <= 0)
+            {
+                ErrorTextTimerIncrement.Text = "The field cannot be blank";
+                return false;
+            }
+            else if (Convert.ToInt32(TimerIncrement.Text) <= 0)
+            {
+                ErrorTextTimerIncrement.Text = "Value must be greater than 0";
+                return false;
+            }
+            else
+            {
+                ErrorTextTimerIncrement.Text = "";
+                return true;
+            }
+        }
+        private void AllInputValidation()
+        {
+            if (PromptLengthOptionValidation() && InputLengthOptionValidation() && TimerLengthOptionValidation() && TimerIncrementOptionValidation())
+            {
+                SaveButton.DialogResult = DialogResult.Yes;
+            }
+            else
+            {
+                SaveButton.DialogResult = DialogResult.None;
+            }
+        }
     }
 }

@@ -45,6 +45,10 @@
             ErrorTextPromptLength = new Label();
             ErrorTextInputLength = new Label();
             ErrorTextTimerLength = new Label();
+            DynamicTimerOption = new CheckBox();
+            TimerIncrement = new TextBox();
+            TimerIncrementLabel = new Label();
+            ErrorTextTimerIncrement = new Label();
             SuspendLayout();
             // 
             // PromptRootOption
@@ -103,7 +107,7 @@
             TimerLength.BorderStyle = BorderStyle.FixedSingle;
             TimerLength.Enabled = false;
             TimerLength.Font = new Font("Segoe UI", 8F);
-            TimerLength.Location = new Point(54, 302);
+            TimerLength.Location = new Point(54, 300);
             TimerLength.Name = "TimerLength";
             TimerLength.Size = new Size(53, 25);
             TimerLength.TabIndex = 5;
@@ -114,7 +118,7 @@
             // 
             TimerLengthLabel.AutoSize = true;
             TimerLengthLabel.Enabled = false;
-            TimerLengthLabel.Location = new Point(111, 304);
+            TimerLengthLabel.Location = new Point(111, 302);
             TimerLengthLabel.Name = "TimerLengthLabel";
             TimerLengthLabel.Size = new Size(125, 20);
             TimerLengthLabel.TabIndex = 6;
@@ -123,7 +127,7 @@
             // StringModeOption
             // 
             StringModeOption.AutoSize = true;
-            StringModeOption.Location = new Point(35, 338);
+            StringModeOption.Location = new Point(35, 392);
             StringModeOption.Name = "StringModeOption";
             StringModeOption.Size = new Size(174, 24);
             StringModeOption.TabIndex = 7;
@@ -177,7 +181,7 @@
             SaveButton.FlatStyle = FlatStyle.Popup;
             SaveButton.Font = new Font("Segoe UI", 11F);
             SaveButton.ForeColor = Color.White;
-            SaveButton.Location = new Point(33, 396);
+            SaveButton.Location = new Point(33, 432);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(143, 42);
             SaveButton.TabIndex = 15;
@@ -191,7 +195,7 @@
             CancelButton.FlatStyle = FlatStyle.Popup;
             CancelButton.Font = new Font("Segoe UI", 11F);
             CancelButton.ForeColor = Color.Black;
-            CancelButton.Location = new Point(186, 396);
+            CancelButton.Location = new Point(186, 432);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(95, 42);
             CancelButton.TabIndex = 16;
@@ -223,16 +227,63 @@
             ErrorTextTimerLength.AutoSize = true;
             ErrorTextTimerLength.Font = new Font("Segoe UI", 5F);
             ErrorTextTimerLength.ForeColor = Color.Red;
-            ErrorTextTimerLength.Location = new Point(242, 309);
+            ErrorTextTimerLength.Location = new Point(242, 307);
             ErrorTextTimerLength.Name = "ErrorTextTimerLength";
             ErrorTextTimerLength.Size = new Size(0, 12);
             ErrorTextTimerLength.TabIndex = 19;
+            // 
+            // DynamicTimerOption
+            // 
+            DynamicTimerOption.AutoSize = true;
+            DynamicTimerOption.Location = new Point(33, 333);
+            DynamicTimerOption.Name = "DynamicTimerOption";
+            DynamicTimerOption.Size = new Size(131, 24);
+            DynamicTimerOption.TabIndex = 20;
+            DynamicTimerOption.Text = "Dynamic Timer";
+            DynamicTimerOption.UseVisualStyleBackColor = true;
+            DynamicTimerOption.CheckedChanged += DynamicTimerOption_CheckedChanged;
+            // 
+            // TimerIncrement
+            // 
+            TimerIncrement.BorderStyle = BorderStyle.FixedSingle;
+            TimerIncrement.Enabled = false;
+            TimerIncrement.Font = new Font("Segoe UI", 8F);
+            TimerIncrement.Location = new Point(54, 361);
+            TimerIncrement.Name = "TimerIncrement";
+            TimerIncrement.Size = new Size(53, 25);
+            TimerIncrement.TabIndex = 21;
+            TimerIncrement.TextAlign = HorizontalAlignment.Center;
+            TimerIncrement.TextChanged += TimerIncrement_TextChanged;
+            // 
+            // TimerIncrementLabel
+            // 
+            TimerIncrementLabel.AutoSize = true;
+            TimerIncrementLabel.Enabled = false;
+            TimerIncrementLabel.Location = new Point(113, 363);
+            TimerIncrementLabel.Name = "TimerIncrementLabel";
+            TimerIncrementLabel.Size = new Size(200, 20);
+            TimerIncrementLabel.TabIndex = 22;
+            TimerIncrementLabel.Text = "Timer increment (in seconds)";
+            // 
+            // ErrorTextTimerIncrement
+            // 
+            ErrorTextTimerIncrement.AutoSize = true;
+            ErrorTextTimerIncrement.Font = new Font("Segoe UI", 5F);
+            ErrorTextTimerIncrement.ForeColor = Color.Red;
+            ErrorTextTimerIncrement.Location = new Point(313, 368);
+            ErrorTextTimerIncrement.Name = "ErrorTextTimerIncrement";
+            ErrorTextTimerIncrement.Size = new Size(0, 12);
+            ErrorTextTimerIncrement.TabIndex = 23;
             // 
             // Options
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(477, 480);
+            ClientSize = new Size(477, 534);
+            Controls.Add(ErrorTextTimerIncrement);
+            Controls.Add(TimerIncrementLabel);
+            Controls.Add(TimerIncrement);
+            Controls.Add(DynamicTimerOption);
             Controls.Add(ErrorTextTimerLength);
             Controls.Add(ErrorTextInputLength);
             Controls.Add(ErrorTextPromptLength);
@@ -276,5 +327,9 @@
         private Label ErrorTextPromptLength;
         private Label ErrorTextInputLength;
         private Label ErrorTextTimerLength;
+        private CheckBox DynamicTimerOption;
+        private TextBox TimerIncrement;
+        private Label TimerIncrementLabel;
+        private Label ErrorTextTimerIncrement;
     }
 }

@@ -5,6 +5,7 @@ namespace NEA_Project__Word_Game_
         public List allWords;
         public LongWordList longWords;
         public bool stringModeActive = false;
+        public bool dynamicTimerActive = false;
 
         public int s;
         public int m;
@@ -50,9 +51,9 @@ namespace NEA_Project__Word_Game_
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
-
-            TimerText.Text = String.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s--.ToString().PadLeft(2, '0'));
-            if (s < 0 && m == 0)
+            s--;
+            TimerText.Text = String.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
+            if (s == 0 && m == 0)
             {
                 Timer.Stop();
                 GuessBox.Enabled = false;
@@ -60,9 +61,9 @@ namespace NEA_Project__Word_Game_
                 GuessBox.Text = "";
                 ErrorText.Text = "Your time is up!";
             }
-            if (s == -1)
+            if (s == 0)
             {
-                s = 59;
+                s = 60;
                 m--;
             }
         }
@@ -113,6 +114,15 @@ namespace NEA_Project__Word_Game_
             {
                 stringModeActive = false;
             }
+
+            if (settings[7] == "true")
+            {
+                dynamicTimerActive = true;
+            }
+            else
+            {
+                dynamicTimerActive = false;
+            }
         }
         private void OptionsButton_Click(object sender, EventArgs e)
         {
@@ -140,6 +150,8 @@ namespace NEA_Project__Word_Game_
                 settings[4] = OptionsForm.GetTimerOption();
                 settings[5] = OptionsForm.GetTimerLength();
                 settings[6] = OptionsForm.GetStringModeOption();
+                settings[7] = OptionsForm.GetDynamicTimerOption();
+                settings[8] = OptionsForm.GetTimerIncrement();
 
                 if (InputValidation(OptionsForm.GetMinPromptLength()) && InputValidation(settings[3]) && InputValidation(settings[5]))
                 {
@@ -175,6 +187,17 @@ namespace NEA_Project__Word_Game_
                 wordList.Items.Add(GuessBox.Text.ToLower());
                 score++;
                 ScoreDisplay.Text = score.ToString();
+
+                if (dynamicTimerActive)
+                {
+                    s += Convert.ToInt32(settings[8]);
+                    while (s > 59)
+                    {
+                        s -= 60;
+                        m++;
+                    }
+                    TimerText.Text = String.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
+                }
             }
             else
             {
@@ -340,7 +363,5 @@ namespace NEA_Project__Word_Game_
             return false;
 
         } // Binary Search Algorithm
-
-
     }
 }
