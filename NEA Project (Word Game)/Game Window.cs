@@ -13,6 +13,7 @@ namespace NEA_Project__Word_Game_
         public int s;
         public int m;
 
+        public string prompt = string.Empty;
         public int score = 0;
         public string[] settings;
         public List<string> tempList = new List<string>();
@@ -87,7 +88,9 @@ namespace NEA_Project__Word_Game_
                 longWords.RollRandomIndex();
 
                 TopLabel.Text = "How many words can you make with: ";                
-                PromptLabel.Text = longWords.GetWord(longWords.GetIndex());
+                prompt = longWords.GetWord(longWords.GetIndex());
+                PromptLabel.Text = prompt;
+
                 UsingTheWord.Text = "";
                 EndOfGamePromptText.Text = "";
                 ResetButton.Text = "Reset";
@@ -95,7 +98,7 @@ namespace NEA_Project__Word_Game_
 
                 gameEnded = false;
 
-                possibleWords = new PossibleWordsList("Dictionary.txt", longWords.GetWord(longWords.GetIndex()), stringModeActive);
+                possibleWords = new PossibleWordsList("Dictionary.txt", prompt, stringModeActive);
 
                 score = 0;
                 if (settings[6] == "true")
@@ -145,7 +148,7 @@ namespace NEA_Project__Word_Game_
         }
         private void OptionsButton_Click(object sender, EventArgs e)
         {
-            Options OptionsForm = new Options(settings, longWords.GetMaximumWordLength());
+            Options OptionsForm = new Options(settings);
             DialogResult input = OptionsForm.ShowDialog();
             if (input == DialogResult.Yes)
             {
@@ -197,7 +200,7 @@ namespace NEA_Project__Word_Game_
         private void GuessSubmitted()
         {
             if (ValidInput(GuessBox.Text.ToLower(),
-                    longWords.GetWord(longWords.GetIndex()).Length,
+                    prompt.Length,
                     longWords.GetWordChars(longWords.GetIndex()),
                     Convert.ToInt32(settings[3])) == "true")
             {
@@ -228,7 +231,7 @@ namespace NEA_Project__Word_Game_
             else
             {
                 ErrorText.Text = ValidInput(GuessBox.Text.ToLower(),
-                    longWords.GetWord(longWords.GetIndex()).Length,
+                    prompt.Length,
                     longWords.GetWordChars(longWords.GetIndex()),
                     Convert.ToInt32(settings[3]));
             }
@@ -254,11 +257,11 @@ namespace NEA_Project__Word_Game_
         private string ValidInput(string input, int wordLength, string[] characters, int minInputLength)
         {
             int index = 0;
-            int[] usedIndexes = new int[wordLength];
+            int[] usedIndexes = new int[prompt.Length];
 
             // Instantly return an invalid error message if the input is longer than the prompt itself
 
-            if (input.Length > wordLength)
+            if (input.Length > prompt.Length)
             {
                 return "Your input uses letters not found in the prompt";
             }
@@ -266,7 +269,7 @@ namespace NEA_Project__Word_Game_
             {
                 return $"Your input cannot be less than {minInputLength.ToString()} characters long";
             }
-            else if (input == longWords.GetWord(longWords.GetIndex()))
+            else if (input == prompt)
             {
                 return "Your input cannot be the same as the prompt";
             }
@@ -296,7 +299,7 @@ namespace NEA_Project__Word_Game_
                 // - If a letter in the input matches a letter in the prompt, a counter goes up and an item is added to an array at the index of the used character
                 //   This array is used to determine if a letter in the prompt has already been used to match a letter in the input. If that is the case, the character is ignored
 
-                for (int j = 0; j < wordLength; j++)
+                for (int j = 0; j < prompt.Length; j++)
                 {
                     if (input[i].ToString() == characters[j] && usedIndexes[j] != 1)
                     {

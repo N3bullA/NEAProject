@@ -15,7 +15,7 @@ namespace NEA_Project__Word_Game_
         int maxWordLength;
         bool closeForm = false;
 
-        public Options(string[] settings, int maximumWordLength)
+        public Options(string[] settings)
         {
             InitializeComponent();
 
@@ -47,8 +47,6 @@ namespace NEA_Project__Word_Game_
             }
 
             TimerIncrement.Text = settings[8];
-
-            maxWordLength = maximumWordLength;
 
             ErrorTextPromptLength.Text = "";
             ErrorTextInputLength.Text = "";
