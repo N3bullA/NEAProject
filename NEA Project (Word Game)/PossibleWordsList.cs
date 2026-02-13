@@ -8,13 +8,14 @@ namespace NEA_Project__Word_Game_
 {
     public class PossibleWordsList : List
     {
-        public PossibleWordsList(string filename, string prompt, bool stringModeSetting) : base(filename)
+        public PossibleWordsList(string filename, string prompt, bool stringModeSetting, string minInputLength) : base(filename)
         {
             using (StreamReader sr = new StreamReader(filename))
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (PossibleWord(line, prompt) && line.Length >= 3)
+                    line = line.ToLower();
+                    if (PossibleWord(line, prompt) && line.Length >= Convert.ToInt32(minInputLength))
                     {
                         tempList.Add(line);
                     }

@@ -31,58 +31,51 @@
             components = new System.ComponentModel.Container();
             ResetButton = new Button();
             GuessBox = new TextBox();
-            wordList = new ListBox();
             PromptLabel = new Label();
             EnterButton = new Button();
             OptionsButton = new Button();
             TopLabel = new Label();
             ErrorText = new Label();
             SaveButton = new Button();
-            label2 = new Label();
+            ScoreLabel = new Label();
             ScoreDisplay = new Label();
             Timer = new System.Windows.Forms.Timer(components);
             TimerText = new Label();
-            DefinitionButton = new Button();
-            DeleteWordButton = new Button();
             UsingTheWord = new Label();
             EndOfGamePromptText = new Label();
+            HelpButton = new Button();
+            WelcomeLabel = new Label();
+            PlayButton = new Button();
+            MenuOptionsButton = new Button();
+            QuitButton = new Button();
+            WordList = new ListBox();
+            ExitButton = new Button();
             SuspendLayout();
             // 
             // ResetButton
             // 
+            ResetButton.Enabled = false;
             ResetButton.Location = new Point(24, 92);
             ResetButton.Name = "ResetButton";
             ResetButton.Size = new Size(109, 29);
             ResetButton.TabIndex = 0;
             ResetButton.Text = "Reset";
             ResetButton.UseVisualStyleBackColor = true;
+            ResetButton.Visible = false;
             ResetButton.Click += ResetButton_Click;
             // 
             // GuessBox
             // 
             GuessBox.BackColor = SystemColors.Window;
             GuessBox.BorderStyle = BorderStyle.FixedSingle;
+            GuessBox.Enabled = false;
             GuessBox.ForeColor = SystemColors.Desktop;
             GuessBox.Location = new Point(156, 94);
             GuessBox.Name = "GuessBox";
             GuessBox.Size = new Size(183, 27);
             GuessBox.TabIndex = 2;
+            GuessBox.Visible = false;
             GuessBox.KeyDown += GuessBox_KeyDown;
-            // 
-            // wordList
-            // 
-            wordList.ColumnWidth = 80;
-            wordList.FormattingEnabled = true;
-            wordList.HorizontalExtent = 50;
-            wordList.HorizontalScrollbar = true;
-            wordList.Items.AddRange(new object[] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" });
-            wordList.Location = new Point(156, 170);
-            wordList.MultiColumn = true;
-            wordList.Name = "wordList";
-            wordList.ScrollAlwaysVisible = true;
-            wordList.Size = new Size(248, 264);
-            wordList.Sorted = true;
-            wordList.TabIndex = 0;
             // 
             // PromptLabel
             // 
@@ -96,22 +89,26 @@
             // 
             // EnterButton
             // 
+            EnterButton.Enabled = false;
             EnterButton.Location = new Point(343, 93);
             EnterButton.Name = "EnterButton";
             EnterButton.Size = new Size(61, 29);
             EnterButton.TabIndex = 10;
             EnterButton.Text = "ENTER";
             EnterButton.UseVisualStyleBackColor = true;
+            EnterButton.Visible = false;
             EnterButton.Click += EnterButton_Click;
             // 
             // OptionsButton
             // 
+            OptionsButton.Enabled = false;
             OptionsButton.Location = new Point(24, 124);
             OptionsButton.Name = "OptionsButton";
             OptionsButton.Size = new Size(109, 29);
             OptionsButton.TabIndex = 11;
             OptionsButton.Text = "Options";
             OptionsButton.UseVisualStyleBackColor = true;
+            OptionsButton.Visible = false;
             OptionsButton.Click += OptionsButton_Click;
             // 
             // TopLabel
@@ -120,9 +117,8 @@
             TopLabel.Font = new Font("Segoe UI", 9F);
             TopLabel.Location = new Point(156, 27);
             TopLabel.Name = "TopLabel";
-            TopLabel.Size = new Size(254, 20);
+            TopLabel.Size = new Size(0, 20);
             TopLabel.TabIndex = 12;
-            TopLabel.Text = "How many words can you make with:";
             // 
             // ErrorText
             // 
@@ -137,6 +133,7 @@
             // SaveButton
             // 
             SaveButton.BackColor = SystemColors.Highlight;
+            SaveButton.Enabled = false;
             SaveButton.FlatStyle = FlatStyle.Popup;
             SaveButton.Font = new Font("Segoe UI", 11F);
             SaveButton.ForeColor = Color.White;
@@ -146,16 +143,16 @@
             SaveButton.TabIndex = 14;
             SaveButton.Text = "Finish Game";
             SaveButton.UseVisualStyleBackColor = false;
+            SaveButton.Visible = false;
             SaveButton.Click += SaveButton_Click;
             // 
-            // label2
+            // ScoreLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(192, 454);
-            label2.Name = "label2";
-            label2.Size = new Size(82, 20);
-            label2.TabIndex = 15;
-            label2.Text = "Your Score:";
+            ScoreLabel.AutoSize = true;
+            ScoreLabel.Location = new Point(192, 454);
+            ScoreLabel.Name = "ScoreLabel";
+            ScoreLabel.Size = new Size(0, 20);
+            ScoreLabel.TabIndex = 15;
             // 
             // ScoreDisplay
             // 
@@ -183,24 +180,6 @@
             TimerText.TextAlign = ContentAlignment.MiddleCenter;
             TimerText.Visible = false;
             // 
-            // DefinitionButton
-            // 
-            DefinitionButton.Location = new Point(24, 170);
-            DefinitionButton.Name = "DefinitionButton";
-            DefinitionButton.Size = new Size(109, 29);
-            DefinitionButton.TabIndex = 18;
-            DefinitionButton.Text = "Definition";
-            DefinitionButton.UseVisualStyleBackColor = true;
-            // 
-            // DeleteWordButton
-            // 
-            DeleteWordButton.Location = new Point(24, 202);
-            DeleteWordButton.Name = "DeleteWordButton";
-            DeleteWordButton.Size = new Size(109, 29);
-            DeleteWordButton.TabIndex = 19;
-            DeleteWordButton.Text = "Delete";
-            DeleteWordButton.UseVisualStyleBackColor = true;
-            // 
             // UsingTheWord
             // 
             UsingTheWord.AutoSize = true;
@@ -220,25 +199,117 @@
             EndOfGamePromptText.TabIndex = 21;
             EndOfGamePromptText.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // HelpButton
+            // 
+            HelpButton.Location = new Point(499, 537);
+            HelpButton.Name = "HelpButton";
+            HelpButton.Size = new Size(54, 29);
+            HelpButton.TabIndex = 22;
+            HelpButton.Text = "Help";
+            HelpButton.UseVisualStyleBackColor = true;
+            HelpButton.Click += HelpButton_Click;
+            // 
+            // WelcomeLabel
+            // 
+            WelcomeLabel.AutoSize = true;
+            WelcomeLabel.Font = new Font("Segoe UI", 25.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            WelcomeLabel.Location = new Point(175, 81);
+            WelcomeLabel.Name = "WelcomeLabel";
+            WelcomeLabel.Size = new Size(208, 57);
+            WelcomeLabel.TabIndex = 23;
+            WelcomeLabel.Text = "Welcome";
+            // 
+            // PlayButton
+            // 
+            PlayButton.BackColor = SystemColors.Highlight;
+            PlayButton.FlatStyle = FlatStyle.Popup;
+            PlayButton.Font = new Font("Segoe UI", 15F);
+            PlayButton.ForeColor = Color.White;
+            PlayButton.Location = new Point(222, 184);
+            PlayButton.Name = "PlayButton";
+            PlayButton.Size = new Size(117, 44);
+            PlayButton.TabIndex = 24;
+            PlayButton.Text = "Play";
+            PlayButton.UseVisualStyleBackColor = false;
+            PlayButton.Click += PlayButton_Click;
+            // 
+            // MenuOptionsButton
+            // 
+            MenuOptionsButton.BackColor = SystemColors.ButtonFace;
+            MenuOptionsButton.FlatStyle = FlatStyle.Popup;
+            MenuOptionsButton.Font = new Font("Segoe UI", 15F);
+            MenuOptionsButton.ForeColor = Color.Black;
+            MenuOptionsButton.Location = new Point(222, 250);
+            MenuOptionsButton.Name = "MenuOptionsButton";
+            MenuOptionsButton.Size = new Size(117, 44);
+            MenuOptionsButton.TabIndex = 25;
+            MenuOptionsButton.Text = "Options";
+            MenuOptionsButton.UseVisualStyleBackColor = false;
+            MenuOptionsButton.Click += MenuOptionsButton_Click;
+            // 
+            // QuitButton
+            // 
+            QuitButton.BackColor = SystemColors.ButtonFace;
+            QuitButton.FlatStyle = FlatStyle.Popup;
+            QuitButton.Font = new Font("Segoe UI", 15F);
+            QuitButton.ForeColor = Color.Black;
+            QuitButton.Location = new Point(222, 315);
+            QuitButton.Name = "QuitButton";
+            QuitButton.Size = new Size(117, 44);
+            QuitButton.TabIndex = 26;
+            QuitButton.Text = "Quit";
+            QuitButton.UseVisualStyleBackColor = false;
+            QuitButton.Click += QuitButton_Click;
+            // 
+            // WordList
+            // 
+            WordList.ColumnWidth = 80;
+            WordList.Enabled = false;
+            WordList.FormattingEnabled = true;
+            WordList.Location = new Point(156, 170);
+            WordList.MultiColumn = true;
+            WordList.Name = "WordList";
+            WordList.ScrollAlwaysVisible = true;
+            WordList.Size = new Size(248, 264);
+            WordList.Sorted = true;
+            WordList.TabIndex = 27;
+            WordList.Visible = false;
+            // 
+            // ExitButton
+            // 
+            ExitButton.Enabled = false;
+            ExitButton.Location = new Point(24, 159);
+            ExitButton.Name = "ExitButton";
+            ExitButton.Size = new Size(109, 29);
+            ExitButton.TabIndex = 28;
+            ExitButton.Text = "Exit";
+            ExitButton.UseVisualStyleBackColor = true;
+            ExitButton.Visible = false;
+            ExitButton.Click += ExitButton_Click;
+            // 
             // GameWindow
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(565, 578);
+            Controls.Add(ExitButton);
+            Controls.Add(WordList);
+            Controls.Add(QuitButton);
+            Controls.Add(MenuOptionsButton);
+            Controls.Add(PlayButton);
+            Controls.Add(WelcomeLabel);
+            Controls.Add(HelpButton);
             Controls.Add(EndOfGamePromptText);
             Controls.Add(UsingTheWord);
-            Controls.Add(DeleteWordButton);
-            Controls.Add(DefinitionButton);
             Controls.Add(TimerText);
             Controls.Add(ScoreDisplay);
-            Controls.Add(label2);
+            Controls.Add(ScoreLabel);
             Controls.Add(SaveButton);
             Controls.Add(ErrorText);
             Controls.Add(TopLabel);
             Controls.Add(OptionsButton);
             Controls.Add(EnterButton);
             Controls.Add(PromptLabel);
-            Controls.Add(wordList);
             Controls.Add(GuessBox);
             Controls.Add(ResetButton);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -253,20 +324,24 @@
 
         private Button ResetButton;
         private TextBox GuessBox;
-        private ListBox wordList;
         private Label PromptLabel;
         private Button EnterButton;
         private Button OptionsButton;
         private Label TopLabel;
         private Label ErrorText;
         private Button SaveButton;
-        private Label label2;
+        private Label ScoreLabel;
         private Label ScoreDisplay;
         private System.Windows.Forms.Timer Timer;
         private Label TimerText;
-        private Button DefinitionButton;
-        private Button DeleteWordButton;
         private Label UsingTheWord;
         private Label EndOfGamePromptText;
+        private Button HelpButton;
+        private Label WelcomeLabel;
+        private Button PlayButton;
+        private Button MenuOptionsButton;
+        private Button QuitButton;
+        private ListBox WordList;
+        private Button ExitButton;
     }
 }

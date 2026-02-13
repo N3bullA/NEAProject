@@ -22,7 +22,7 @@ namespace NEA_Project__Word_Game_
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    tempList.Add(line);
+                    tempList.Add(line.ToLower());
                     if (line.Length > maxWordLength)
                     {
                         maxWordLength = line.Length;

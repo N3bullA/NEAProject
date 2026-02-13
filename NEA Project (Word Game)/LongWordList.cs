@@ -14,6 +14,7 @@ namespace NEA_Project__Word_Game_
             {
                 while ((line = sr.ReadLine()) != null)
                 {
+                    line = line.ToLower();
                     if (line.Length >= minimumLength)
                     {
                         if (rootWords == "true")
