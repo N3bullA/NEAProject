@@ -1,0 +1,20 @@
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\bin\Debug\net8.0-windows\NEA Project (Word Game).exe
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\bin\Debug\net8.0-windows\NEA Project (Word Game).deps.json
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\bin\Debug\net8.0-windows\NEA Project (Word Game).runtimeconfig.json
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\bin\Debug\net8.0-windows\NEA Project (Word Game).dll
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\bin\Debug\net8.0-windows\NEA Project (Word Game).pdb
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA_Project__Word_Game_.gameWindow.resources
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).csproj.GenerateResource.cache
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).AssemblyInfoInputs.cache
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).AssemblyInfo.cs
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).csproj.CoreCompileInputs.cache
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).dll
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\refint\NEA Project (Word Game).dll
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).pdb
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).genruntimeconfig.cache
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\ref\NEA Project (Word Game).dll
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA_Project__Word_Game_.Options.resources
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA Project (Word Game).sourcelink.json
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA_Project__Word_Game_.WhatDidIMiss.resources
+C:\Users\N3bulA_\source\repos\NEA_Project\NEA Project (Word Game)\obj\Debug\net8.0-windows\NEA_Project__Word_Game_.HowToPlay.resources
