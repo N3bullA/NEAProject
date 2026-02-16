@@ -50,6 +50,7 @@
             QuitButton = new Button();
             WordList = new ListBox();
             ExitButton = new Button();
+            DefineButton = new Button();
             SuspendLayout();
             // 
             // ResetButton
@@ -102,7 +103,7 @@
             // OptionsButton
             // 
             OptionsButton.Enabled = false;
-            OptionsButton.Location = new Point(24, 124);
+            OptionsButton.Location = new Point(24, 201);
             OptionsButton.Name = "OptionsButton";
             OptionsButton.Size = new Size(109, 29);
             OptionsButton.TabIndex = 11;
@@ -274,11 +275,12 @@
             WordList.Sorted = true;
             WordList.TabIndex = 27;
             WordList.Visible = false;
+            WordList.SelectedIndexChanged += WordList_SelectedIndexChanged;
             // 
             // ExitButton
             // 
             ExitButton.Enabled = false;
-            ExitButton.Location = new Point(24, 159);
+            ExitButton.Location = new Point(24, 123);
             ExitButton.Name = "ExitButton";
             ExitButton.Size = new Size(109, 29);
             ExitButton.TabIndex = 28;
@@ -287,11 +289,24 @@
             ExitButton.Visible = false;
             ExitButton.Click += ExitButton_Click;
             // 
+            // DefineButton
+            // 
+            DefineButton.Enabled = false;
+            DefineButton.Location = new Point(24, 170);
+            DefineButton.Name = "DefineButton";
+            DefineButton.Size = new Size(109, 29);
+            DefineButton.TabIndex = 29;
+            DefineButton.Text = "Define";
+            DefineButton.UseVisualStyleBackColor = true;
+            DefineButton.Visible = false;
+            DefineButton.Click += DefineButton_Click;
+            // 
             // GameWindow
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(565, 578);
+            Controls.Add(DefineButton);
             Controls.Add(ExitButton);
             Controls.Add(WordList);
             Controls.Add(QuitButton);
@@ -343,5 +358,6 @@
         private Button QuitButton;
         private ListBox WordList;
         private Button ExitButton;
+        private Button DefineButton;
     }
 }

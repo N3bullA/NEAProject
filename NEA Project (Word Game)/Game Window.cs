@@ -1,3 +1,5 @@
+using test_thing;
+
 namespace NEA_Project__Word_Game_
 {
     public partial class GameWindow : Form
@@ -11,10 +13,13 @@ namespace NEA_Project__Word_Game_
         public bool dynamicTimerActive = false;
         public bool gameEnded = false;
 
+        public bool definePrompt = true;
+
         public int s;
         public int m;
 
         public string prompt = string.Empty;
+        public string[] definitions;
         public int score = 0;
         public string[] settings;
         public List<string> tempList = new List<string>();
@@ -443,6 +448,8 @@ namespace NEA_Project__Word_Game_
             ResetButton.Visible = true;
             OptionsButton.Enabled = true;
             OptionsButton.Visible = true;
+            DefineButton.Enabled = true;
+            DefineButton.Visible = true;
             ExitButton.Enabled = true;
             ExitButton.Visible = true;
             TimerText.Enabled = true;
@@ -497,6 +504,8 @@ namespace NEA_Project__Word_Game_
                 SaveButton.Visible = false;
                 ResetButton.Enabled = false;
                 ResetButton.Visible = false;
+                DefineButton.Enabled = false;
+                DefineButton.Visible = false;
                 OptionsButton.Enabled = false;
                 OptionsButton.Visible = false;
                 Timer.Stop();
@@ -520,6 +529,58 @@ namespace NEA_Project__Word_Game_
                 QuitButton.Enabled = true;
                 QuitButton.Visible = true;
             }
+        }
+        private async Task GetDefinition(string word)
+        {
+            DefinitionLookup lookup = new DefinitionLookup();
+            int index = 0;
+            List<string> templist = new List<string>();
+            definitions = templist.ToArray();
+
+            while (await lookup.GetDefinitionAsync(word, index) != "error")
+            {
+                templist.Add(await lookup.GetDefinitionAsync(word, index));
+                index++;
+            }
+
+            if (templist.Count > 0)
+            {
+                definitions = templist.ToArray();
+                templist.Clear();
+                DisplayDefinition();
+            }
+            else
+            {
+                MessageBox.Show("No definitions found!");
+            }
+        }
+
+        private void DefineButton_Click(object sender, EventArgs e)
+        {
+            if (definePrompt)
+            {
+                GetDefinition(prompt);
+            }
+            else
+            {
+                GetDefinition(WordList.SelectedItem.ToString());
+            }
+        }
+
+        private void WordList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            definePrompt = false;
+        }
+
+        private void DisplayDefinition()
+        {
+            string definitionText = string.Empty;
+            foreach (string line in definitions)
+            {
+                definitionText += $"\n{line}";
+            }
+
+            MessageBox.Show(definitionText);
         }
     }
 }
