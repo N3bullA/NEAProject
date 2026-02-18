@@ -52,6 +52,11 @@ namespace NEA_Project__Word_Game_
             // Count down one second every 1000 ticks
 
             s--;
+            if (s <= -1)
+            {
+                s = 59;
+                m--;
+            }
             TimerText.Text = String.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
 
             if (s == 0 && m == 0) // Stop the timer once it reaches 0
@@ -61,11 +66,6 @@ namespace NEA_Project__Word_Game_
                 EnterButton.Enabled = false;
                 GuessBox.Text = "";
                 ErrorText.Text = "Your time is up!";
-            }
-            if (s == 0) // Count down one minute every time the seconds display reaches 0
-            {
-                s = 60;
-                m--;
             }
         }
         private void ResetButton_Click(object sender, EventArgs e)
