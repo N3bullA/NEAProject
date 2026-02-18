@@ -48,6 +48,7 @@
             TimerIncrement = new TextBox();
             TimerIncrementLabel = new Label();
             ErrorTextTimerIncrement = new Label();
+            label3 = new Label();
             SuspendLayout();
             // 
             // PromptRootOption
@@ -170,7 +171,7 @@
             SaveButton.FlatStyle = FlatStyle.Popup;
             SaveButton.Font = new Font("Segoe UI", 11F);
             SaveButton.ForeColor = Color.White;
-            SaveButton.Location = new Point(33, 407);
+            SaveButton.Location = new Point(33, 457);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(143, 42);
             SaveButton.TabIndex = 15;
@@ -184,7 +185,7 @@
             CancelButton.FlatStyle = FlatStyle.Popup;
             CancelButton.Font = new Font("Segoe UI", 11F);
             CancelButton.ForeColor = Color.Black;
-            CancelButton.Location = new Point(186, 407);
+            CancelButton.Location = new Point(186, 457);
             CancelButton.Name = "CancelButton";
             CancelButton.Size = new Size(95, 42);
             CancelButton.TabIndex = 16;
@@ -264,11 +265,23 @@
             ErrorTextTimerIncrement.Size = new Size(0, 12);
             ErrorTextTimerIncrement.TabIndex = 23;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 7F);
+            label3.ForeColor = SystemColors.ControlDarkDark;
+            label3.Location = new Point(54, 384);
+            label3.Name = "label3";
+            label3.Size = new Size(320, 45);
+            label3.TabIndex = 24;
+            label3.Text = "\"String Mode\" is where your next input must begin with the\r\nsame letter as the last letter of your previous input.\r\n   e.g. HIT -> TABLE -> EARLY -> YEAST";
+            // 
             // Options
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(477, 489);
+            ClientSize = new Size(477, 533);
+            Controls.Add(label3);
             Controls.Add(ErrorTextTimerIncrement);
             Controls.Add(TimerIncrementLabel);
             Controls.Add(TimerIncrement);
@@ -318,5 +331,6 @@
         private TextBox TimerIncrement;
         private Label TimerIncrementLabel;
         private Label ErrorTextTimerIncrement;
+        private Label label3;
     }
 }

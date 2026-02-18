@@ -12,16 +12,61 @@ namespace NEA_Project__Word_Game_
 {
     public partial class WhatDidIMiss : Form
     {
+        public string[] definitions;
         public WhatDidIMiss(string[] missedWords)
         {
             InitializeComponent();
-            tempbox.Items.Clear();
+            WordList.Items.Clear();
 
             foreach (string word in missedWords)
             {
-                tempbox.Items.Add(word);
+                WordList.Items.Add(word);
             }
 
+        }
+        private void DefineButton_Click(object sender, EventArgs e)
+        {
+            GetDefinition(WordList.SelectedItem.ToString());
+        }
+
+        private async Task GetDefinition(string word)
+        {
+            DefinitionLookup lookup = new DefinitionLookup();
+            int index = 0;
+            List<string> templist = new List<string>();
+            definitions = templist.ToArray();
+
+            while (await lookup.GetDefinitionAsync(word, index) != "error")
+            {
+                templist.Add(await lookup.GetDefinitionAsync(word, index));
+                index++;
+            }
+
+            if (templist.Count > 0)
+            {
+                definitions = templist.ToArray();
+                templist.Clear();
+                DisplayDefinition();
+            }
+            else
+            {
+                MessageBox.Show("No definitions found!");
+            }
+        }
+        private void DisplayDefinition()
+        {
+            string definitionText = string.Empty;
+            foreach (string line in definitions)
+            {
+                definitionText += $"\n- {line}";
+            }
+
+            MessageBox.Show(definitionText);
+        }
+
+        private void WordList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DefineButton.Enabled = true;
         }
     }
 }

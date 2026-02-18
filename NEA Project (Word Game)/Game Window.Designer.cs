@@ -73,6 +73,7 @@
             GuessBox.ForeColor = SystemColors.Desktop;
             GuessBox.Location = new Point(156, 94);
             GuessBox.Name = "GuessBox";
+            GuessBox.PlaceholderText = "Type a word here...";
             GuessBox.Size = new Size(183, 27);
             GuessBox.TabIndex = 2;
             GuessBox.Visible = false;
@@ -136,7 +137,7 @@
             SaveButton.BackColor = SystemColors.Highlight;
             SaveButton.Enabled = false;
             SaveButton.FlatStyle = FlatStyle.Popup;
-            SaveButton.Font = new Font("Segoe UI", 11F);
+            SaveButton.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SaveButton.ForeColor = Color.White;
             SaveButton.Location = new Point(192, 488);
             SaveButton.Name = "SaveButton";
@@ -214,7 +215,7 @@
             // 
             WelcomeLabel.AutoSize = true;
             WelcomeLabel.Font = new Font("Segoe UI", 25.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            WelcomeLabel.Location = new Point(175, 81);
+            WelcomeLabel.Location = new Point(175, 103);
             WelcomeLabel.Name = "WelcomeLabel";
             WelcomeLabel.Size = new Size(208, 57);
             WelcomeLabel.TabIndex = 23;
@@ -226,7 +227,7 @@
             PlayButton.FlatStyle = FlatStyle.Popup;
             PlayButton.Font = new Font("Segoe UI", 15F);
             PlayButton.ForeColor = Color.White;
-            PlayButton.Location = new Point(222, 184);
+            PlayButton.Location = new Point(222, 216);
             PlayButton.Name = "PlayButton";
             PlayButton.Size = new Size(117, 44);
             PlayButton.TabIndex = 24;
@@ -240,7 +241,7 @@
             MenuOptionsButton.FlatStyle = FlatStyle.Popup;
             MenuOptionsButton.Font = new Font("Segoe UI", 15F);
             MenuOptionsButton.ForeColor = Color.Black;
-            MenuOptionsButton.Location = new Point(222, 250);
+            MenuOptionsButton.Location = new Point(222, 282);
             MenuOptionsButton.Name = "MenuOptionsButton";
             MenuOptionsButton.Size = new Size(117, 44);
             MenuOptionsButton.TabIndex = 25;
@@ -254,7 +255,7 @@
             QuitButton.FlatStyle = FlatStyle.Popup;
             QuitButton.Font = new Font("Segoe UI", 15F);
             QuitButton.ForeColor = Color.Black;
-            QuitButton.Location = new Point(222, 315);
+            QuitButton.Location = new Point(222, 347);
             QuitButton.Name = "QuitButton";
             QuitButton.Size = new Size(117, 44);
             QuitButton.TabIndex = 26;

@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace test_thing
+namespace NEA_Project__Word_Game_
 {
     public class DefinitionLookup
     {
         private static readonly HttpClient client = new HttpClient();
         public async Task<string> GetDefinitionAsync(string word, int index)
         {
-            var response = await client.GetAsync($"https://api.dictionaryapi.dev/api/v2/entries/en/{word}");
+            using var response = await client.GetAsync($"https://api.dictionaryapi.dev/api/v2/entries/en/{word}");
 
             if (response.IsSuccessStatusCode == false)
             {

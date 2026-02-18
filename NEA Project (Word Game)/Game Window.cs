@@ -1,5 +1,3 @@
-using test_thing;
-
 namespace NEA_Project__Word_Game_
 {
     public partial class GameWindow : Form
@@ -520,6 +518,7 @@ namespace NEA_Project__Word_Game_
                 TopLabel.Text = "";
                 ScoreDisplay.Text = "";
                 EndOfGamePromptText.Text = "";
+                GuessBox.Text = "";
 
                 WelcomeLabel.Text = "Welcome";
                 PlayButton.Enabled = true;
@@ -528,6 +527,9 @@ namespace NEA_Project__Word_Game_
                 MenuOptionsButton.Visible = true;
                 QuitButton.Enabled = true;
                 QuitButton.Visible = true;
+
+                WordList.Items.Clear();
+                score = 0;
             }
         }
         private async Task GetDefinition(string word)
@@ -577,7 +579,7 @@ namespace NEA_Project__Word_Game_
             string definitionText = string.Empty;
             foreach (string line in definitions)
             {
-                definitionText += $"\n{line}";
+                definitionText += $"\n- {line}";
             }
 
             MessageBox.Show(definitionText);
