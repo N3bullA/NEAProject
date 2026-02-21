@@ -117,4 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label10.Text" xml:space="preserve">
+    <value>"Random Mode" is when after each correct input the prompt reshuffles.
+You still need to avoid inputting words you've already entered during this game.
+Play with "Dynamic Timer Mode" for best experience.</value>
+  </data>
 </root>

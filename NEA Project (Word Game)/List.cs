@@ -22,10 +22,13 @@ namespace NEA_Project__Word_Game_
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    tempList.Add(line.ToLower());
-                    if (line.Length > maxWordLength)
+                    if (line != "" && !ContainsNonLetters(line.ToLower()))
                     {
-                        maxWordLength = line.Length;
+                        tempList.Add(line.ToLower());
+                        if (line.Length > maxWordLength)
+                        {
+                            maxWordLength = line.Length;
+                        }
                     }
                 }
                 words = tempList.ToArray();
@@ -66,7 +69,17 @@ namespace NEA_Project__Word_Game_
         {
             return maxWordLength;
         }
-
+        public bool ContainsNonLetters(string word)
+        {
+            for (int i = 0; i < word.Length; i++)
+            {
+                if ((int)word[i] < 97 || (int)word[i] > 122)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         // Merge Sort - Dividing arrays in two
         public static void MergeSort(string[] words)
         {

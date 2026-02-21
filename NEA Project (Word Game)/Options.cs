@@ -13,7 +13,6 @@ namespace NEA_Project__Word_Game_
     public partial class Options : Form
     {
         int maxWordLength;
-        bool closeForm = false;
 
         public Options(string[] settings, int maximumWordLength)
         {
@@ -26,35 +25,97 @@ namespace NEA_Project__Word_Game_
                 PromptRootOption.Checked = true;
             }
 
-            PromptLengthOptionText.Text = settings[2];
+            PromptMinLengthOptionText.Text = settings[1];
+            PromptMaxLengthOptionText.Text = settings[2];
             InputLengthOptionText.Text = settings[3];
+            SelectionOptionInitialisation(settings);
 
-            if (settings[4] == "true")
+            if (settings[7] == "true")
             {
                 EnableTimerOption.Checked = true;
                 TimerLength.Enabled = true;
                 TimerLengthLabel.Enabled = true;
             }
 
-            TimerLength.Text = settings[5];
+            TimerLength.Text = settings[8];
 
-            if (settings[6] == "true")
-            {
-                StringModeOption.Checked = true;
-            }
-
-            if (settings[7] == "true")
+            if (settings[9] == "true")
             {
                 DynamicTimerOption.Checked = true;
             }
 
-            TimerIncrement.Text = settings[8];
+            TimerIncrement.Text = settings[10];
+
+            if (settings[11] == "true")
+            {
+                StringModeOption.Checked = true;
+            }
+            if (settings[12] == "true")
+            {
+                RandomModeOption.Checked = true;
+            }
 
             ErrorTextPromptLength.Text = "";
             ErrorTextInputLength.Text = "";
             ErrorTextTimerLength.Text = "";
 
             SaveButton.DialogResult = DialogResult.Yes;
+        }
+        public void SelectionOptionInitialisation(string[] settings)
+        {
+            switch (Convert.ToInt32(settings[4]))
+            {
+                case (int)DictionaryType.IELTS:
+                    PromptSelectionDatabase.SetItemChecked(0, true);
+                    PromptSelectionDatabase.SetSelected(0, true);
+                    break;
+                case (int)DictionaryType.DictionaryAPI:
+                    PromptSelectionDatabase.SetItemChecked(1, true);
+                    PromptSelectionDatabase.SetSelected(1, true);
+                    break;
+                case (int)DictionaryType.JUST_WORDS:
+                    PromptSelectionDatabase.SetItemChecked(2, true);
+                    PromptSelectionDatabase.SetSelected(2, true);
+                    break;
+                case (int)DictionaryType.Infochimps:
+                    PromptSelectionDatabase.SetItemChecked(3, true);
+                    PromptSelectionDatabase.SetSelected(3, true);
+                    break;
+            }
+            switch (Convert.ToInt32(settings[5]))
+            {
+                case (int)DictionaryType.DictionaryAPI:
+                    WordListSelectionDatabase.SetItemChecked(0, true);
+                    WordListSelectionDatabase.SetSelected(0, true);
+                    break;
+                case (int)DictionaryType.JUST_WORDS:
+                    WordListSelectionDatabase.SetItemChecked(1, true);
+                    WordListSelectionDatabase.SetSelected(1, true);
+                    break;
+                case (int)DictionaryType.Infochimps:
+                    WordListSelectionDatabase.SetItemChecked(2, true);
+                    WordListSelectionDatabase.SetSelected(2, true);
+                    break;
+            }
+            switch (Convert.ToInt32(settings[6]))
+            {
+                case (int)ScoreFormatting.Discrete:
+                    ScoreFormatSelection.SetItemChecked(0, true);
+                    ScoreFormatSelection.SetSelected(0, true);
+                    break;
+                case (int)ScoreFormatting.Percentage:
+                    ScoreFormatSelection.SetItemChecked(1, true);
+                    ScoreFormatSelection.SetSelected(1, true);
+                    break;
+                case (int)ScoreFormatting.Both:
+                    ScoreFormatSelection.SetItemChecked(2, true);
+                    ScoreFormatSelection.SetSelected(2, true);
+                    break;
+                case (int)ScoreFormatting.Neither:
+                    ScoreFormatSelection.SetItemChecked(3, true);
+                    ScoreFormatSelection.SetSelected(3, true);
+                    break;
+            }
         }
         public string GetPromptRootOption() // Boolean Option
         {
@@ -69,11 +130,28 @@ namespace NEA_Project__Word_Game_
         }
         public string GetMinPromptLength() // String Option
         {
-            return PromptLengthOptionText.Text;
+            return PromptMinLengthOptionText.Text;
+        }
+        public string GetMaxPromptLength() // String Option
+        {
+            return PromptMaxLengthOptionText.Text;
         }
         public string GetMinInputLength() // String Option
         {
             return InputLengthOptionText.Text;
+        }
+        public string GetSelectedPromptDictionary()
+        {
+
+            return PromptSelectionDatabase.SelectedIndex.ToString();
+        }
+        public string GetSelectedAllDictionary()
+        {
+            return (WordListSelectionDatabase.SelectedIndex + 1).ToString();
+        }
+        public string GetScoreFormatting()
+        {
+            return ScoreFormatSelection.SelectedIndex.ToString();
         }
         public string GetTimerOption()
         {
@@ -90,17 +168,6 @@ namespace NEA_Project__Word_Game_
         {
             return TimerLength.Text;
         }
-        public string GetStringModeOption()
-        {
-            if (StringModeOption.Checked)
-            {
-                return "true";
-            }
-            else
-            {
-                return "false";
-            }
-        } // Boolean Option
         public string GetDynamicTimerOption()
         {
             if (DynamicTimerOption.Checked)
@@ -116,19 +183,33 @@ namespace NEA_Project__Word_Game_
         {
             return TimerIncrement.Text;
         }
-
-        public void SetPromptLengthError(bool valid)
+        public string GetStringModeOption()
         {
-            if (valid)
+            if (StringModeOption.Checked)
             {
-                ErrorTextPromptLength.Text = "";
+                return "true";
             }
             else
             {
-                ErrorTextPromptLength.Text = "Must be a number above 0";
+                return "false";
+            }
+        } // Boolean Option
+        public string GetRandomModeOption()
+        {
+            if (RandomModeOption.Checked)
+            {
+                return "true";
+            }
+            else
+            {
+                return "false";
             }
         }
-        private void PromptLengthOptionText_TextChanged(object sender, EventArgs e)
+        private void PromptMinLengthOptionText_TextChanged(object sender, EventArgs e)
+        {
+            AllInputValidation();
+        }
+        private void PromptMaxLengthOptionText_TextChanged(object sender, EventArgs e)
         {
             AllInputValidation();
         }
@@ -180,6 +261,119 @@ namespace NEA_Project__Word_Game_
                 TimerIncrementLabel.Enabled = false;
             }
         }
+        private void StringModeOption_CheckedChanged(object sender, EventArgs e)
+        {
+            if (StringModeOption.Checked)
+            {
+                ScoreFormatSelection.Enabled = false;
+                ScoreFormattingLabel.Enabled = false;
+                RandomModeOption.Enabled = false;
+            }
+            else
+            {
+                ScoreFormatSelection.Enabled = true;
+                ScoreFormattingLabel.Enabled = true;
+                RandomModeOption.Enabled = true;
+            }
+        }
+        private void RandomModeOption_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RandomModeOption.Checked)
+            {
+                ScoreFormatSelection.Enabled = false;
+                ScoreFormattingLabel.Enabled = false;
+                StringModeOption.Enabled = false;
+            }
+            else
+            {
+                ScoreFormatSelection.Enabled = true;
+                ScoreFormattingLabel.Enabled = true;
+                StringModeOption.Enabled = true;
+            }
+        }
+        private void PromptSelectionDatabase_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (PromptSelectionDatabase.SelectedItem == PromptSelectionDatabase.Items[0])
+            {
+                PromptSelectionDatabase.SetItemChecked(0, true);
+                PromptSelectionDatabase.SetItemChecked(1, false);
+                PromptSelectionDatabase.SetItemChecked(2, false);
+                PromptSelectionDatabase.SetItemChecked(3, false);
+            }
+            else if (PromptSelectionDatabase.SelectedItem == PromptSelectionDatabase.Items[1])
+            {
+                PromptSelectionDatabase.SetItemChecked(0, false);
+                PromptSelectionDatabase.SetItemChecked(1, true);
+                PromptSelectionDatabase.SetItemChecked(2, false);
+                PromptSelectionDatabase.SetItemChecked(3, false);
+            }
+            else if (PromptSelectionDatabase.SelectedItem == PromptSelectionDatabase.Items[2])
+            {
+                PromptSelectionDatabase.SetItemChecked(0, false);
+                PromptSelectionDatabase.SetItemChecked(1, false);
+                PromptSelectionDatabase.SetItemChecked(2, true);
+                PromptSelectionDatabase.SetItemChecked(3, false);
+            }
+            else if (PromptSelectionDatabase.SelectedItem == PromptSelectionDatabase.Items[3])
+            {
+                PromptSelectionDatabase.SetItemChecked(0, false);
+                PromptSelectionDatabase.SetItemChecked(1, false);
+                PromptSelectionDatabase.SetItemChecked(2, false);
+                PromptSelectionDatabase.SetItemChecked(3, true);
+            }
+        }
+        private void WordListSelectionDatabase_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (WordListSelectionDatabase.SelectedItem == WordListSelectionDatabase.Items[0])
+            {
+                WordListSelectionDatabase.SetItemChecked(0, true);
+                WordListSelectionDatabase.SetItemChecked(1, false);
+                WordListSelectionDatabase.SetItemChecked(2, false);
+            }
+            else if (WordListSelectionDatabase.SelectedItem == WordListSelectionDatabase.Items[1])
+            {
+                WordListSelectionDatabase.SetItemChecked(0, false);
+                WordListSelectionDatabase.SetItemChecked(1, true);
+                WordListSelectionDatabase.SetItemChecked(2, false);
+            }
+            else if (WordListSelectionDatabase.SelectedItem == WordListSelectionDatabase.Items[2])
+            {
+                WordListSelectionDatabase.SetItemChecked(0, false);
+                WordListSelectionDatabase.SetItemChecked(1, false);
+                WordListSelectionDatabase.SetItemChecked(2, true);
+            }
+        }
+        private void ScoreFormatSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ScoreFormatSelection.SelectedItem == ScoreFormatSelection.Items[0])
+            {
+                ScoreFormatSelection.SetItemChecked(0, true);
+                ScoreFormatSelection.SetItemChecked(1, false);
+                ScoreFormatSelection.SetItemChecked(2, false);
+                ScoreFormatSelection.SetItemChecked(3, false);
+            }
+            else if (ScoreFormatSelection.SelectedItem == ScoreFormatSelection.Items[1])
+            {
+                ScoreFormatSelection.SetItemChecked(0, false);
+                ScoreFormatSelection.SetItemChecked(1, true);
+                ScoreFormatSelection.SetItemChecked(2, false);
+                ScoreFormatSelection.SetItemChecked(3, false);
+            }
+            else if (ScoreFormatSelection.SelectedItem == ScoreFormatSelection.Items[2])
+            {
+                ScoreFormatSelection.SetItemChecked(0, false);
+                ScoreFormatSelection.SetItemChecked(1, false);
+                ScoreFormatSelection.SetItemChecked(2, true);
+                ScoreFormatSelection.SetItemChecked(3, false);
+            }
+            else if (ScoreFormatSelection.SelectedItem == ScoreFormatSelection.Items[3])
+            {
+                ScoreFormatSelection.SetItemChecked(0, false);
+                ScoreFormatSelection.SetItemChecked(1, false);
+                ScoreFormatSelection.SetItemChecked(2, false);
+                ScoreFormatSelection.SetItemChecked(3, true);
+            }
+        }
         public bool NumbersOnly(string text)
         {
             for (int i = 0; i < text.Length; i++)
@@ -191,35 +385,42 @@ namespace NEA_Project__Word_Game_
             }
             return true;
         }
-        public bool PromptLengthOptionValidation()
+
+        // Input validation for each option
+        public bool PromptMinLengthOptionValidation()
         {
-            if (!NumbersOnly(PromptLengthOptionText.Text))
+            if (!NumbersOnly(PromptMinLengthOptionText.Text) || !NumbersOnly(PromptMaxLengthOptionText.Text))
             {
-                ErrorTextPromptLength.Text = "Value must only contain numbers";
+                ErrorTextPromptLength.Text = "Values must only contain numbers";
                 return false;
             }
-            else if (PromptLengthOptionText.Text.Length <= 0)
+            else if (PromptMinLengthOptionText.Text.Length <= 0 || PromptMaxLengthOptionText.Text.Length <= 0)
             {
-                ErrorTextPromptLength.Text = "The field cannot be blank";
+                ErrorTextPromptLength.Text = "These fields cannot be blank";
                 return false;
             }
             else if (NumbersOnly(InputLengthOptionText.Text) && InputLengthOptionText.Text.Length > 0)
             {
-                if (Convert.ToInt32(PromptLengthOptionText.Text) < Convert.ToInt32(InputLengthOptionText.Text))
+                if (Convert.ToInt32(PromptMinLengthOptionText.Text) < Convert.ToInt32(InputLengthOptionText.Text))
                 {
-                    ErrorTextPromptLength.Text = "Value must be greater than the minimum input length";
+                    ErrorTextPromptLength.Text = "Values must be greater than the min. input length";
                     return false;
                 }
             }
 
-            if (Convert.ToInt32(PromptLengthOptionText.Text) < 5)
+            if (Convert.ToInt32(PromptMinLengthOptionText.Text) < 5)
             {
-                ErrorTextPromptLength.Text = "Value must be greater than 5";
+                ErrorTextPromptLength.Text = "Values must be greater than 5";
                 return false;
             }
-            else if (Convert.ToInt32(PromptLengthOptionText.Text) > maxWordLength)
+            else if (Convert.ToInt32(PromptMinLengthOptionText.Text) > maxWordLength)
             {
                 ErrorTextPromptLength.Text = "There are no words longer than this value";
+                return false;
+            }
+            else if (Convert.ToInt32(PromptMinLengthOptionText.Text) > Convert.ToInt32(PromptMaxLengthOptionText.Text))
+            {
+                ErrorTextPromptLength.Text = "Invalid range";
                 return false;
             }
             else
@@ -240,9 +441,9 @@ namespace NEA_Project__Word_Game_
                 ErrorTextInputLength.Text = "The field cannot be blank";
                 return false;
             }
-            else if (NumbersOnly(PromptLengthOptionText.Text) && PromptLengthOptionText.Text.Length > 0)
+            else if (NumbersOnly(PromptMinLengthOptionText.Text) && PromptMinLengthOptionText.Text.Length > 0)
             {
-                if (Convert.ToInt32(PromptLengthOptionText.Text) < Convert.ToInt32(InputLengthOptionText.Text))
+                if (Convert.ToInt32(PromptMinLengthOptionText.Text) < Convert.ToInt32(InputLengthOptionText.Text))
                 {
                     ErrorTextInputLength.Text = "Value must be less than the minimum prompt length";
                     return false;
@@ -312,14 +513,28 @@ namespace NEA_Project__Word_Game_
         }
         private void AllInputValidation()
         {
-            if (PromptLengthOptionValidation() && InputLengthOptionValidation() && TimerLengthOptionValidation() && TimerIncrementOptionValidation())
+            bool[] validations = { PromptMinLengthOptionValidation(),
+                InputLengthOptionValidation(),
+                TimerLengthOptionValidation(),
+                TimerIncrementOptionValidation() };
+
+            foreach (var validation in validations)
             {
-                SaveButton.DialogResult = DialogResult.Yes;
+                if (!validation)
+                {
+                    SaveButton.Enabled = false;
+                    SaveButton.BackColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
+                    return;
+                }
             }
-            else
-            {
-                SaveButton.DialogResult = DialogResult.None;
-            }
+            SaveButton.Enabled = true;
+            SaveButton.BackColor = Color.FromKnownColor(KnownColor.Highlight);
+        }
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            PromptSelectionDatabase.SetItemChecked(PromptSelectionDatabase.SelectedIndex, true);
+            WordListSelectionDatabase.SetItemChecked(WordListSelectionDatabase.SelectedIndex, true);
+            ScoreFormatSelection.SetItemChecked(ScoreFormatSelection.SelectedIndex, true);
         }
     }
 }

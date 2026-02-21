@@ -3,23 +3,20 @@ namespace NEA_Project__Word_Game_
     public partial class GameWindow : Form
     {
         public List allWords;
-        public LongWordList longWords;
-        public PossibleWordsList possibleWords;
+        public PromptWordList promptWords;
+        public PossibleWordList possibleWords;
 
-        public int timerIncrement;
-        public bool stringModeActive = false;
-        public bool dynamicTimerActive = false;
+        public string[] files = { "IELTS_Dictionary.txt", "DictionaryAPI_Dictionary.txt", "JUSTWORDS_Dictionary.txt", "Infochimps_Dictionary.txt" };
         public bool gameEnded = false;
-
         public bool definePrompt = true;
 
-        public int s;
-        public int m;
+        public int seconds;
+        public int minutes;
 
         public string prompt = string.Empty;
-        public string[] definitions;
         public int score = 0;
-        public string[] settings;
+        public string[] fileSettings = new string[12];
+        public string[] gameSettings = new string[13];
         public List<string> tempList = new List<string>();
 
         public GameWindow()
@@ -33,39 +30,78 @@ namespace NEA_Project__Word_Game_
             {
                 while ((line = srOptions.ReadLine()) != null)
                 {
-                    tempList.Add(line);
+                    if (line.Length > 0)
+                    {
+                        tempList.Add(line);
+                    }
                 }
             }
-            settings = tempList.ToArray();
+            fileSettings = tempList.ToArray();
             tempList.Clear();
 
-            // Declare instances of the List objects
-
-            allWords = new List("Dictionary.txt");
-            longWords = new LongWordList("Dictionary.txt", settings[0], Convert.ToInt32(settings[2]));
+            allWords = new List(files[Convert.ToInt32(fileSettings[5])]);
         }
         public void GameWindow_Load(object sender, EventArgs e)
         {
         }
-        private void Timer_Tick(object sender, EventArgs e)
+        public void NewGame()
         {
-            // Count down one second every 1000 ticks
+            definePrompt = true;
+            score = 0;
+            Array.Copy(fileSettings, gameSettings, fileSettings.Length);
+            NewPromptWords(); // Create new instance of the prompt words - this is to update the list if the player changed settings
 
-            s--;
-            if (s <= -1)
+            promptWords.RollRandomIndex();
+            prompt = promptWords.GetWord(promptWords.GetIndex());
+            PromptLabel.Text = prompt;
+
+            if (gameSettings[12] == "false") // Change formatting if Random Mode is enabled
             {
-                s = 59;
-                m--;
+                TopLabel.Text = "How many words can you make with: ";
             }
-            TimerText.Text = String.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
-
-            if (s == 0 && m == 0) // Stop the timer once it reaches 0
+            else
             {
-                Timer.Stop();
-                GuessBox.Enabled = false;
-                EnterButton.Enabled = false;
-                GuessBox.Text = "";
-                ErrorText.Text = "Your time is up!";
+                TopLabel.Text = "Make a word using: ";
+            }
+
+            if (gameSettings[11] == "false" && gameSettings[12] == "false")
+            {
+                NewPossibleWords(); // Creates instance of all possible words for score display calculation - It's not calculated otherwise for optimisation purposes.
+            }        
+
+            InitialiseSettings();
+        }
+        private void SetOptions()
+        {
+            NewPromptWords();
+            Options optionsForm = new Options(fileSettings, promptWords.GetMaximumWordLength());
+            DialogResult input = optionsForm.ShowDialog();
+            if (input == DialogResult.Yes)
+            {
+                // Convert all inputs in the options menu to values stored in the "fileSettings" array
+
+                fileSettings[0] = optionsForm.GetPromptRootOption();
+                fileSettings[1] = optionsForm.GetMinPromptLength();
+                fileSettings[2] = optionsForm.GetMaxPromptLength();
+                fileSettings[3] = optionsForm.GetMinInputLength();
+                fileSettings[4] = optionsForm.GetSelectedPromptDictionary();
+                fileSettings[5] = optionsForm.GetSelectedAllDictionary();
+                fileSettings[6] = optionsForm.GetScoreFormatting();
+                fileSettings[7] = optionsForm.GetTimerOption();
+                fileSettings[8] = optionsForm.GetTimerLength();
+                fileSettings[9] = optionsForm.GetDynamicTimerOption();
+                fileSettings[10] = optionsForm.GetTimerIncrement();
+                fileSettings[11] = optionsForm.GetStringModeOption();
+                fileSettings[12] = optionsForm.GetRandomModeOption();
+
+                // Writes all the options into the "Options.txt" text file
+
+                StreamWriter sw = new StreamWriter("Options.txt");
+                foreach (string option in fileSettings)
+                {
+                    sw.WriteLine(option);
+                }
+                sw.Close();
             }
         }
         private void ResetButton_Click(object sender, EventArgs e)
@@ -86,14 +122,7 @@ namespace NEA_Project__Word_Game_
 
                 // Change the interface back to the game interface when a new game starts
 
-                longWords.RollRandomIndex();
-                TopLabel.Text = "How many words can you make with: ";
-                prompt = longWords.GetWord(longWords.GetIndex());
-                PromptLabel.Text = prompt;
-                possibleWords = new PossibleWordsList("Dictionary.txt", prompt, stringModeActive, settings[3]);
-                score = 0;
-
-                InitialiseSettings();
+                NewGame();
 
                 UsingTheWord.Text = "";
                 EndOfGamePromptText.Text = "";
@@ -105,38 +134,6 @@ namespace NEA_Project__Word_Game_
                 EnterButton.Enabled = true;
                 EnterButton.Visible = true;
                 ErrorText.Text = string.Empty;
-            }
-        }
-        private void OptionsButton_Click(object sender, EventArgs e)
-        {
-            SetOptions();
-        }
-
-        private void SetOptions()
-        {
-            Options OptionsForm = new Options(settings, longWords.GetMaximumWordLength());
-            DialogResult input = OptionsForm.ShowDialog();
-            if (input == DialogResult.Yes)
-            {
-                // Convert all inputs in the options menu to values stored in the "settings" array
-
-                settings[0] = OptionsForm.GetPromptRootOption();
-                settings[2] = OptionsForm.GetMinPromptLength();
-                settings[3] = OptionsForm.GetMinInputLength();
-                settings[4] = OptionsForm.GetTimerOption();
-                settings[5] = OptionsForm.GetTimerLength();
-                settings[6] = OptionsForm.GetStringModeOption();
-                settings[7] = OptionsForm.GetDynamicTimerOption();
-                settings[8] = OptionsForm.GetTimerIncrement();
-
-                // Writes all the options into the "Options.txt" text file
-
-                StreamWriter sw = new StreamWriter("Options.txt");
-                foreach (string option in settings)
-                {
-                    sw.WriteLine(option);
-                }
-                sw.Close();
             }
         }
         private void GuessBox_KeyDown(object sender, KeyEventArgs e) // Detects if the player presses ENTER when typing
@@ -153,42 +150,133 @@ namespace NEA_Project__Word_Game_
         private void GuessSubmitted()
         {
             if (ValidInput(GuessBox.Text.ToLower(),
-                    prompt.Length,
-                    longWords.GetWordChars(longWords.GetIndex()),
-                    Convert.ToInt32(settings[3])) == "true") // Add the word to the word list and increment the score if the input is valid
+                    promptWords.GetWordChars(promptWords.GetIndex()),
+                    Convert.ToInt32(gameSettings[3]), gameSettings[11]) == "true") // Add the word to the word list and increment the score if the input is valid
             {
                 ErrorText.Text = string.Empty;
                 WordList.Items.Add(GuessBox.Text.ToLower());
                 score++;
 
-                if (stringModeActive)
+                if (gameSettings[12] == "true") // Generate a new prompt if Random Mode is enabled & force display the default score format if Random Mode or String Mode is enabled
                 {
-                    ScoreDisplay.Text = score.ToString();
+                    promptWords.RollRandomIndex();
+                    prompt = promptWords.GetWord(promptWords.GetIndex());
+                    PromptLabel.Text = prompt;
+                    ScoreDisplay.Text = $"{score}";
+                }
+                else if (gameSettings[11] == "true")
+                {
+                    ScoreDisplay.Text = $"{score}";
                 }
                 else
                 {
-                    ScoreDisplay.Text = $"{score.ToString()} / {possibleWords.GetWordCount()}";
+                    ScoreDisplay.Text = ScoreFormat(Convert.ToInt32(gameSettings[6]), gameSettings[11], gameSettings[12]);
                 }
 
-                if (dynamicTimerActive) // Increment the timer if the "Dynamic Timer" option is enabled
+                if (gameSettings[9] == "true") // Increment the timer if the "Dynamic Timer" option is enabled
                 {
-                    s += timerIncrement;
-                    while (s > 59)
+                    seconds += Convert.ToInt32(gameSettings[10]);
+                    while (seconds > 59)
                     {
-                        s -= 60;
-                        m++;
+                        seconds -= 60;
+                        minutes++;
                     }
-                    TimerText.Text = String.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
+                    TimerText.Text = String.Format("{0}:{1}", minutes.ToString().PadLeft(2, '0'), seconds.ToString().PadLeft(2, '0'));
                 }
             }
             else // Display the appropriate error message
             {
                 ErrorText.Text = ValidInput(GuessBox.Text.ToLower(),
-                    prompt.Length,
-                    longWords.GetWordChars(longWords.GetIndex()),
-                    Convert.ToInt32(settings[3]));
+                    promptWords.GetWordChars(promptWords.GetIndex()),
+                    Convert.ToInt32(gameSettings[3]), gameSettings[11]);
             }
             GuessBox.Text = string.Empty;
+        }
+        private void PlayButton_Click(object sender, EventArgs e)
+        {
+            // Switching to the game interface
+
+            ScoreLabel.Text = "Your score:";
+            GuessBox.Enabled = true;
+            GuessBox.Visible = true;
+            EnterButton.Enabled = true;
+            EnterButton.Visible = true;
+            WordList.Enabled = true;
+            WordList.Visible = true;
+            SaveButton.Enabled = true;
+            SaveButton.Visible = true;
+            ResetButton.Enabled = true;
+            ResetButton.Visible = true;
+            OptionsButton.Enabled = true;
+            OptionsButton.Visible = true;
+            DefineButton.Enabled = true;
+            DefineButton.Visible = true;
+            ExitButton.Enabled = true;
+            ExitButton.Visible = true;
+            TimerText.Enabled = true;
+
+            WelcomeLabel.Text = "";
+            PlayButton.Enabled = false;
+            PlayButton.Visible = false;
+            MenuOptionsButton.Enabled = false;
+            MenuOptionsButton.Visible = false;
+            QuitButton.Enabled = false;
+            QuitButton.Visible = false;
+
+            NewGame();
+        }
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            DialogResult choice = MessageBox.Show("Are you sure you want to quit to the main menu?", // Confirmation menu
+                "Confirm Exit?",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1);
+
+            if (choice == DialogResult.Yes)
+            {
+                // Switching back to the startup menu interface
+
+                ScoreLabel.Text = "";
+                GuessBox.Enabled = false;
+                GuessBox.Visible = false;
+                EnterButton.Enabled = false;
+                EnterButton.Visible = false;
+                WordList.Enabled = false;
+                WordList.Visible = false;
+                SaveButton.Enabled = false;
+                SaveButton.Visible = false;
+                ResetButton.Enabled = false;
+                ResetButton.Visible = false;
+                DefineButton.Enabled = false;
+                DefineButton.Visible = false;
+                OptionsButton.Enabled = false;
+                OptionsButton.Visible = false;
+                Timer.Stop();
+                Timer.Enabled = false;
+                TimerText.Enabled = false;
+                TimerText.Visible = false;
+                ExitButton.Enabled = false;
+                ExitButton.Visible = false;
+                ErrorText.Text = "";
+                UsingTheWord.Text = "";
+                PromptLabel.Text = "";
+                TopLabel.Text = "";
+                ScoreDisplay.Text = "";
+                EndOfGamePromptText.Text = "";
+                GuessBox.Text = "";
+
+                WelcomeLabel.Text = "Welcome";
+                PlayButton.Enabled = true;
+                PlayButton.Visible = true;
+                MenuOptionsButton.Enabled = true;
+                MenuOptionsButton.Visible = true;
+                QuitButton.Enabled = true;
+                QuitButton.Visible = true;
+
+                WordList.Items.Clear();
+                score = 0;
+            }
         }
         private void SaveButton_Click(object sender, EventArgs e)
         {
@@ -204,7 +292,7 @@ namespace NEA_Project__Word_Game_
                 {
                     for (int j = 0; j < score; j++)
                     {
-                        if (possibleWords.GetWord(i) == WordList.Items[j].ToString())
+                        if (possibleWords.GetWord(i) == WordList.Items[j].ToString()) // Checking if the word has already been entered by the player
                         {
                             addWord = false;
                         }
@@ -234,37 +322,102 @@ namespace NEA_Project__Word_Game_
                 GuessBox.Text = "";
                 ResetButton.Text = "New Game";
                 ErrorText.Text = "";
-
                 SaveButton.Text = "What did I miss?";
-                EndOfGamePromptText.Text = PromptLabel.Text;
-                TopLabel.Text = "Congratulations! You have named";
-                PromptLabel.Text = $"{score.ToString()} / {possibleWords.GetWordCount()} words";
-                UsingTheWord.Text = "using the word";
+
+                if (gameSettings[12] == "true") // Display a different summary menu depending on what gamemode the player is playing
+                {
+                    TopLabel.Text = "";
+                    PromptLabel.Text = $"You have named {score} words";
+                    UsingTheWord.Text = "with randomised words!";
+                    EndOfGamePromptText.Text = $"You failed on {prompt}";
+                    NewPossibleWords();
+                }
+                else
+                {
+                    EndOfGamePromptText.Text = PromptLabel.Text;
+                    TopLabel.Text = "Congratulations! You have named";
+                    UsingTheWord.Text = "using the word";
+
+                    if (gameSettings[11] == "true")
+                    {
+                        PromptLabel.Text = $"{score} words";
+                        NewPossibleWords(); // Calculate possible words only after the game is done if String Mode or Random Mode is enabled
+                    }
+                    else
+                    {
+                        PromptLabel.Text = $"{ScoreFormat(Convert.ToInt32(gameSettings[6]), gameSettings[11], gameSettings[12])} words";
+                    }
+                }                  
             }
         }
-        private string ValidInput(string input, int wordLength, string[] characters, int minInputLength)
+        private string ScoreFormat(int formatIndex, string stringMode, string randomMode) // Determines which format the score display should be, specified by the options menu
         {
-            int index = 0;
+            double percentage = (double)score / possibleWords.GetWordCount() * 100;
+            if (stringMode == "true" || randomMode == "true")
+            {
+                return $"{score}";
+            }
+            switch (formatIndex)
+            {
+                case 0:
+                    return $"{score} / {possibleWords.GetWordCount()}";
+                case 1:
+                    return $"{score} ({percentage:0.00}%)";
+                case 2:
+                    return $"{score} / {possibleWords.GetWordCount()} ({percentage:0.00}%)";
+                case 3:
+                    return $"{score}";
+            }
+            return $"{score}";
+        }
+        private void InitialiseSettings() // Properly sets up the next game to reflect all the selected options
+        {
+            if (gameSettings[7] == "true") // Enable timer
+            {
+                seconds = Convert.ToInt32(gameSettings[8]) % 60;
+                minutes = Convert.ToInt32(gameSettings[8]) / 60;
+                TimerText.Text = String.Format("{0}:{1}", minutes.ToString().PadLeft(2, '0'), seconds.ToString().PadLeft(2, '0'));
+                TimerText.Visible = true;
+                Timer.Enabled = true;
+                Timer.Start();
+            }
+            else
+            {
+                TimerText.Visible = false;
+                Timer.Enabled = false;
+                Timer.Stop();
+            }
+
+            if (gameSettings[11] == "true" || gameSettings[12] == "true") // Format the score display
+            {
+                WordList.Sorted = false;
+                ScoreDisplay.Text = score.ToString();
+            }
+            else
+            {
+                WordList.Sorted = true;
+                ScoreDisplay.Text = ScoreFormat(Convert.ToInt32(gameSettings[6]), gameSettings[11], gameSettings[12]);
+            }
+        }
+        private string ValidInput(string input, string[] characters, int minInputLength, string stringModeActive) // Input validation algorithm
+        {
+            int validationIndex = 0;
             int[] usedIndexes = new int[prompt.Length];
 
-            // Instantly return an invalid error message if the input is longer than the prompt itself
-
-            if (input.Length > prompt.Length)
+            if (input.Length > prompt.Length) // Instantly return an invalid error message if the input is longer than the prompt itself
             {
                 return "Your input uses letters not found in the prompt";
             }
-            else if (input.Length < minInputLength)
+            else if (input.Length < minInputLength) // Return error message if the length of the input is below the minimum threshold specified in the options menu
             {
                 return $"Your input cannot be less than {minInputLength.ToString()} characters long";
             }
-            else if (input == prompt)
+            else if (input == prompt) // Return error message if the input is the same as the prompt
             {
                 return "Your input cannot be the same as the prompt";
             }
 
-            // Checking if the word has already been entered
-
-            for (int i = score - 1; i >= 0; i--)
+            for (int i = score - 1; i >= 0; i--) // Checking if the word has already been entered
             {
                 if (input == WordList.Items[i].ToString())
                 {
@@ -272,9 +425,7 @@ namespace NEA_Project__Word_Game_
                 }
             }
 
-            // Checking each letter in the input
-
-            for (int i = 0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++) // Checking each letter in the input
             {
                 // Returning an invalid error message if there's a non-letter character in the input
 
@@ -291,14 +442,14 @@ namespace NEA_Project__Word_Game_
                 {
                     if (input[i].ToString() == characters[j] && usedIndexes[j] != 1)
                     {
-                        index++;
+                        validationIndex++;
                         usedIndexes[j] = 1;
                         break;
                     }
                 }
             }
 
-            if (stringModeActive && score > 0)
+            if (stringModeActive == "true" && score > 0) // Checking if the input begins with the last letter of the previous input if String Mode is enabled
             {
                 if (input[0] != WordList.Items[score - 1].ToString()[WordList.Items[score - 1].ToString().Length - 1])
                 {
@@ -306,15 +457,13 @@ namespace NEA_Project__Word_Game_
                 }
             }
 
-            // If all the letters are valid (resulting in the index variable being equal to the input's length) and the input is a word in the dictionary, return true.
-
-            if (index == input.Length && BinarySearch(input, allWords.GetWordCount()))
+            if (validationIndex == input.Length && BinarySearch(input, allWords.GetWordCount())) // If all the letters are valid and the input is a word in the dictionary, return true.
             {
                 return "true";
             }
             else
             {
-                if (index != input.Length)
+                if (validationIndex != input.Length)
                 {
                     return "Your input uses letters not found in the prompt";
                 }
@@ -379,185 +528,13 @@ namespace NEA_Project__Word_Game_
             }
 
             return false;
-
         }
-        private void InitialiseSettings() // Properly sets up the next game to reflect all the selected options
-        {
-            if (settings[4] == "true")
-            {
-                s = Convert.ToInt32(settings[5]) % 60;
-                m = Convert.ToInt32(settings[5]) / 60;
-                TimerText.Text = String.Format("{0}:{1}", m.ToString().PadLeft(2, '0'), s.ToString().PadLeft(2, '0'));
-                TimerText.Visible = true;
-                Timer.Enabled = true;
-                Timer.Start();
-            }
-            else
-            {
-                TimerText.Visible = false;
-                Timer.Enabled = false;
-                Timer.Stop();
-            }
-
-            if (settings[6] == "true")
-            {
-                stringModeActive = true;
-                WordList.Sorted = false;
-                ScoreDisplay.Text = score.ToString();
-            }
-            else
-            {
-                stringModeActive = false;
-                WordList.Sorted = true;
-                ScoreDisplay.Text = $"{score.ToString()} / {possibleWords.GetWordCount()}";
-            }
-
-            if (settings[7] == "true")
-            {
-                dynamicTimerActive = true;
-            }
-            else
-            {
-                dynamicTimerActive = false;
-            }
-
-            timerIncrement = Convert.ToInt32(settings[8]);
-        }
-        private void HelpButton_Click(object sender, EventArgs e) // Shows the help window
-        {
-            HowToPlay help = new HowToPlay();
-            help.ShowDialog();
-        }
-
-        private void PlayButton_Click(object sender, EventArgs e)
-        {
-            // Display the game interface after the player presses PLAY
-
-            ScoreLabel.Text = "Your score:";
-            GuessBox.Enabled = true;
-            GuessBox.Visible = true;
-            EnterButton.Enabled = true;
-            EnterButton.Visible = true;
-            WordList.Enabled = true;
-            WordList.Visible = true;
-            SaveButton.Enabled = true;
-            SaveButton.Visible = true;
-            ResetButton.Enabled = true;
-            ResetButton.Visible = true;
-            OptionsButton.Enabled = true;
-            OptionsButton.Visible = true;
-            DefineButton.Enabled = true;
-            DefineButton.Visible = true;
-            ExitButton.Enabled = true;
-            ExitButton.Visible = true;
-            TimerText.Enabled = true;
-
-            WelcomeLabel.Text = "";
-            PlayButton.Enabled = false;
-            PlayButton.Visible = false;
-            MenuOptionsButton.Enabled = false;
-            MenuOptionsButton.Visible = false;
-            QuitButton.Enabled = false;
-            QuitButton.Visible = false;
-
-            longWords.RollRandomIndex();
-            TopLabel.Text = "How many words can you make with: ";
-            ScoreLabel.Text = "Your score:";
-            prompt = longWords.GetWord(longWords.GetIndex());
-            PromptLabel.Text = prompt;
-
-            possibleWords = new PossibleWordsList("Dictionary.txt", prompt, stringModeActive, settings[3]);
-
-            InitialiseSettings();
-        }
-
-        private void MenuOptionsButton_Click(object sender, EventArgs e)
-        {
-            SetOptions();
-        }
-
-        private void QuitButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void ExitButton_Click(object sender, EventArgs e)
-        {
-            DialogResult choice = MessageBox.Show("Are you sure you want to quit to the main menu?",
-                "Confirm Exit?",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button1);
-
-            if (choice == DialogResult.Yes)
-            {
-                ScoreLabel.Text = "";
-                GuessBox.Enabled = false;
-                GuessBox.Visible = false;
-                EnterButton.Enabled = false;
-                EnterButton.Visible = false;
-                WordList.Enabled = false;
-                WordList.Visible = false;
-                SaveButton.Enabled = false;
-                SaveButton.Visible = false;
-                ResetButton.Enabled = false;
-                ResetButton.Visible = false;
-                DefineButton.Enabled = false;
-                DefineButton.Visible = false;
-                OptionsButton.Enabled = false;
-                OptionsButton.Visible = false;
-                Timer.Stop();
-                Timer.Enabled = false;
-                TimerText.Enabled = false;
-                TimerText.Visible = false;
-                ExitButton.Enabled = false;
-                ExitButton.Visible = false;
-                ErrorText.Text = "";
-                UsingTheWord.Text = "";
-                PromptLabel.Text = "";
-                TopLabel.Text = "";
-                ScoreDisplay.Text = "";
-                EndOfGamePromptText.Text = "";
-                GuessBox.Text = "";
-
-                WelcomeLabel.Text = "Welcome";
-                PlayButton.Enabled = true;
-                PlayButton.Visible = true;
-                MenuOptionsButton.Enabled = true;
-                MenuOptionsButton.Visible = true;
-                QuitButton.Enabled = true;
-                QuitButton.Visible = true;
-
-                WordList.Items.Clear();
-                score = 0;
-            }
-        }
-        private async Task GetDefinition(string word)
+        static async Task GetDefinition(string word)
         {
             DefinitionLookup lookup = new DefinitionLookup();
-            int index = 0;
-            List<string> templist = new List<string>();
-            definitions = templist.ToArray();
-
-            while (await lookup.GetDefinitionAsync(word, index) != "error")
-            {
-                templist.Add(await lookup.GetDefinitionAsync(word, index));
-                index++;
-            }
-
-            if (templist.Count > 0)
-            {
-                definitions = templist.ToArray();
-                templist.Clear();
-                DisplayDefinition();
-            }
-            else
-            {
-                MessageBox.Show("No definitions found!");
-            }
+            MessageBox.Show(await lookup.GetDefinitionAsync(word));
         }
-
-        private void DefineButton_Click(object sender, EventArgs e)
+        private void DefineButton_Click(object sender, EventArgs e) // Detect when to define the prompt or the selected word
         {
             if (definePrompt)
             {
@@ -568,21 +545,61 @@ namespace NEA_Project__Word_Game_
                 GetDefinition(WordList.SelectedItem.ToString());
             }
         }
-
-        private void WordList_SelectedIndexChanged(object sender, EventArgs e)
+        private void WordList_SelectedIndexChanged(object sender, EventArgs e) // Detect when the player has selected a word to avoid the program defining the prompt
         {
             definePrompt = false;
         }
-
-        private void DisplayDefinition()
+        private void Timer_Tick(object sender, EventArgs e) // Count down one second every 1000 ticks
         {
-            string definitionText = string.Empty;
-            foreach (string line in definitions)
+            seconds--;
+            if (seconds <= -1)
             {
-                definitionText += $"\n- {line}";
+                seconds = 59;
+                minutes--;
             }
+            TimerText.Text = String.Format("{0}:{1}", minutes.ToString().PadLeft(2, '0'), seconds.ToString().PadLeft(2, '0'));
 
-            MessageBox.Show(definitionText);
+            if (seconds == 0 && minutes == 0) // Stop the timer once it reaches 0
+            {
+                Timer.Stop();
+                GuessBox.Enabled = false;
+                EnterButton.Enabled = false;
+                GuessBox.Text = "";
+                ErrorText.Text = "Your time is up!";
+            }
         }
+        private void OptionsButton_Click(object sender, EventArgs e)
+        {
+            SetOptions();
+        }
+        private void MenuOptionsButton_Click(object sender, EventArgs e)
+        {
+            SetOptions();
+        }
+        private void HelpButton_Click(object sender, EventArgs e) // Shows the help window
+        {
+            HowToPlay helpForm = new HowToPlay();
+            helpForm.ShowDialog();
+        }
+        private void QuitButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        private void NewPromptWords()
+        {
+            promptWords = new PromptWordList(files[Convert.ToInt32(gameSettings[4])], fileSettings[0], Convert.ToInt32(fileSettings[1]), Convert.ToInt32(fileSettings[2]));
+        } // Create new instance of prompt words
+        private void NewPossibleWords()
+        {
+            if (score == 0)
+            {
+                possibleWords = new PossibleWordList(files[Convert.ToInt32(gameSettings[5])], prompt, Convert.ToInt32(gameSettings[3]), gameSettings[11], '0');
+            }
+            else
+            {
+                possibleWords = new PossibleWordList(files[Convert.ToInt32(gameSettings[5])], prompt, Convert.ToInt32(gameSettings[3]), gameSettings[11], WordList.Items[score-1].ToString()[WordList.Items[score-1].ToString().Length-1]);
+            }
+            
+        } // Create new instance of possible words for a prompt
     }
 }

@@ -1,9 +1,13 @@
-true
 false
 8
+12
 3
-true
+0
+1
+0
+false
 180
 false
-false
 5
+false
+false

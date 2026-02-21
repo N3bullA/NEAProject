@@ -28,42 +28,11 @@ namespace NEA_Project__Word_Game_
         {
             GetDefinition(WordList.SelectedItem.ToString());
         }
-
         private async Task GetDefinition(string word)
         {
             DefinitionLookup lookup = new DefinitionLookup();
-            int index = 0;
-            List<string> templist = new List<string>();
-            definitions = templist.ToArray();
-
-            while (await lookup.GetDefinitionAsync(word, index) != "error")
-            {
-                templist.Add(await lookup.GetDefinitionAsync(word, index));
-                index++;
-            }
-
-            if (templist.Count > 0)
-            {
-                definitions = templist.ToArray();
-                templist.Clear();
-                DisplayDefinition();
-            }
-            else
-            {
-                MessageBox.Show("No definitions found!");
-            }
+            MessageBox.Show(await lookup.GetDefinitionAsync(word));
         }
-        private void DisplayDefinition()
-        {
-            string definitionText = string.Empty;
-            foreach (string line in definitions)
-            {
-                definitionText += $"\n- {line}";
-            }
-
-            MessageBox.Show(definitionText);
-        }
-
         private void WordList_SelectedIndexChanged(object sender, EventArgs e)
         {
             DefineButton.Enabled = true;
