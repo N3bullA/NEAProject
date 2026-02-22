@@ -23,17 +23,23 @@ namespace NEA_Project__Word_Game_
                 var root = doc.RootElement[0];
                 string definition = string.Empty;
 
-                for (int i = 0; i < root.GetProperty("meanings")[0].GetProperty("definitions").GetArrayLength(); i++)
+                for (int i = 0; i < root.GetProperty("meanings").GetArrayLength(); i++)
                 {
-                    definition += $"- {root.GetProperty("meanings")[0].GetProperty("definitions")[i].GetProperty("definition").GetString()}\n";
-                    // Append definition
+                    definition += $"{root.GetProperty("meanings")[i].GetProperty("partOfSpeech").GetString()}\n";
 
-                    try
+                    for (int j = 0; j < root.GetProperty("meanings")[i].GetProperty("definitions").GetArrayLength(); j++)
                     {
-                        definition += $"\n     • {root.GetProperty("meanings")[0].GetProperty("definitions")[i].GetProperty("example").GetString()}\n";
-                        // Append example
+                        definition += $"- {root.GetProperty("meanings")[i].GetProperty("definitions")[j].GetProperty("definition").GetString()}\n";
+                        // Append definition
+
+                        try
+                        {
+                            definition += $"     • {root.GetProperty("meanings")[i].GetProperty("definitions")[j].GetProperty("example").GetString()}\n";
+                            // Append example
+                        }
+                        catch { } // Do nothing if no example is found
                     }
-                    catch { } // Do nothing if no example is found
+                    definition += "\n";
                 }
                 if (definition.Length == 0) // Return error if no definitions are found for that word
                 {
