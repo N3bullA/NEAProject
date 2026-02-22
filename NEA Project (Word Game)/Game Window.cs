@@ -6,7 +6,10 @@ namespace NEA_Project__Word_Game_
         public PromptWordList promptWords;
         public PossibleWordList possibleWords;
 
-        public string[] files = { "IELTS_Dictionary.txt", "DictionaryAPI_Dictionary.txt", "JUSTWORDS_Dictionary.txt", "Infochimps_Dictionary.txt" };
+        public string[] files = { "IELTS_Dictionary.txt", 
+            "DictionaryAPI_Dictionary.txt", 
+            "JUSTWORDS_Dictionary.txt", 
+            "Infochimps_Dictionary.txt" };
         public bool gameEnded = false;
         public bool definePrompt = true;
 
@@ -49,7 +52,8 @@ namespace NEA_Project__Word_Game_
             definePrompt = true;
             score = 0;
             Array.Copy(fileSettings, gameSettings, fileSettings.Length);
-            NewPromptWords(); // Create new instance of the prompt words - this is to update the list if the player changed settings
+            NewPromptWords(); // Create new instance of the prompt words
+                              // this is to update the list if the player changed settings
 
             promptWords.RollRandomIndex();
             prompt = promptWords.GetWord(promptWords.GetIndex());
@@ -66,7 +70,8 @@ namespace NEA_Project__Word_Game_
 
             if (gameSettings[11] == "false" && gameSettings[12] == "false")
             {
-                NewPossibleWords(); // Creates instance of all possible words for score display calculation - It's not calculated otherwise for optimisation purposes.
+                NewPossibleWords(); // Creates instance of all possible words for score display calculation
+                                    // It's not calculated otherwise for optimisation purposes.
             }        
 
             InitialiseSettings();
@@ -151,13 +156,16 @@ namespace NEA_Project__Word_Game_
         {
             if (ValidInput(GuessBox.Text.ToLower(),
                     promptWords.GetWordChars(promptWords.GetIndex()),
-                    Convert.ToInt32(gameSettings[3]), gameSettings[11]) == "true") // Add the word to the word list and increment the score if the input is valid
+                    Convert.ToInt32(gameSettings[3]), gameSettings[11]) == "true") 
+                    // Add the word to the word list and increment the score if the input is valid
             {
                 ErrorText.Text = string.Empty;
                 WordList.Items.Add(GuessBox.Text.ToLower());
                 score++;
 
-                if (gameSettings[12] == "true") // Generate a new prompt if Random Mode is enabled & force display the default score format if Random Mode or String Mode is enabled
+                if (gameSettings[12] == "true") 
+                    // Generate a new prompt if Random Mode is enabled & force display the default score format
+                    // if Random Mode or String Mode is enabled
                 {
                     promptWords.RollRandomIndex();
                     prompt = promptWords.GetWord(promptWords.GetIndex());
@@ -350,7 +358,8 @@ namespace NEA_Project__Word_Game_
                 }                  
             }
         }
-        private string ScoreFormat(int formatIndex, string stringMode, string randomMode) // Determines which format the score display should be, specified by the options menu
+        private string ScoreFormat(int formatIndex, string stringMode, string randomMode)
+            // Determines which format the score display should be, specified by the options menu
         {
             double percentage = (double)score / possibleWords.GetWordCount() * 100;
             if (stringMode == "true" || randomMode == "true")
@@ -408,7 +417,8 @@ namespace NEA_Project__Word_Game_
             {
                 return "Your input uses letters not found in the prompt";
             }
-            else if (input.Length < minInputLength) // Return error message if the length of the input is below the minimum threshold specified in the options menu
+            else if (input.Length < minInputLength) // Return error message if the length of the input is
+                                                    // below the minimum threshold specified in the options menu
             {
                 return $"Your input cannot be less than {minInputLength.ToString()} characters long";
             }
@@ -435,8 +445,10 @@ namespace NEA_Project__Word_Game_
                 }
 
                 // Comparing each letter in the input to each letter in the prompt:
-                // - If a letter in the input matches a letter in the prompt, a counter goes up and an item is added to an array at the index of the used character
-                //   This array is used to determine if a letter in the prompt has already been used to match a letter in the input. If that is the case, the character is ignored
+                // - If a letter in the input matches a letter in the prompt, a counter goes up and an item
+                // is added to an array at the index of the used character
+                // - This array is used to determine if a letter in the prompt has already been used to match a letter in the input.
+                // If that is the case, the character is ignored
 
                 for (int j = 0; j < prompt.Length; j++)
                 {
@@ -457,7 +469,8 @@ namespace NEA_Project__Word_Game_
                 }
             }
 
-            if (validationIndex == input.Length && BinarySearch(input, allWords.GetWordCount())) // If all the letters are valid and the input is a word in the dictionary, return true.
+            if (validationIndex == input.Length && BinarySearch(input, allWords.GetWordCount())) // If all the letters are valid and the input is a
+                                                                                                 // word in the dictionary, return true.
             {
                 return "true";
             }
@@ -545,7 +558,8 @@ namespace NEA_Project__Word_Game_
                 GetDefinition(WordList.SelectedItem.ToString());
             }
         }
-        private void WordList_SelectedIndexChanged(object sender, EventArgs e) // Detect when the player has selected a word to avoid the program defining the prompt
+        private void WordList_SelectedIndexChanged(object sender, EventArgs e) 
+            // Detect when the player has selected a word to avoid the program defining the prompt
         {
             definePrompt = false;
         }
@@ -587,17 +601,27 @@ namespace NEA_Project__Word_Game_
         }
         private void NewPromptWords()
         {
-            promptWords = new PromptWordList(files[Convert.ToInt32(gameSettings[4])], fileSettings[0], Convert.ToInt32(fileSettings[1]), Convert.ToInt32(fileSettings[2]));
+            promptWords = new PromptWordList(files[Convert.ToInt32(gameSettings[4])], 
+                fileSettings[0],
+                Convert.ToInt32(fileSettings[1]), 
+                Convert.ToInt32(fileSettings[2]));
         } // Create new instance of prompt words
         private void NewPossibleWords()
         {
             if (score == 0)
             {
-                possibleWords = new PossibleWordList(files[Convert.ToInt32(gameSettings[5])], prompt, Convert.ToInt32(gameSettings[3]), gameSettings[11], '0');
+                possibleWords = new PossibleWordList(files[Convert.ToInt32(gameSettings[5])], 
+                    prompt,
+                    Convert.ToInt32(gameSettings[3]), 
+                    gameSettings[11], '0');
             }
             else
             {
-                possibleWords = new PossibleWordList(files[Convert.ToInt32(gameSettings[5])], prompt, Convert.ToInt32(gameSettings[3]), gameSettings[11], WordList.Items[score-1].ToString()[WordList.Items[score-1].ToString().Length-1]);
+                possibleWords = new PossibleWordList(files[Convert.ToInt32(gameSettings[5])],
+                   prompt,
+                   Convert.ToInt32(gameSettings[3]), 
+                   gameSettings[11], 
+                   WordList.Items[score-1].ToString()[WordList.Items[score-1].ToString().Length-1]);
             }
             
         } // Create new instance of possible words for a prompt

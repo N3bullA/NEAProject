@@ -25,14 +25,15 @@ namespace NEA_Project__Word_Game_
 
                 for (int i = 0; i < root.GetProperty("meanings")[0].GetProperty("definitions").GetArrayLength(); i++)
                 {
-                    definition += $"- {root.GetProperty("meanings")[0].GetProperty("definitions")[i].GetProperty("definition").GetString()}\n"; // Append definition
+                    definition += $"- {root.GetProperty("meanings")[0].GetProperty("definitions")[i].GetProperty("definition").GetString()}\n";
+                    // Append definition
+
                     try
                     {
-                        definition += $"\n     • {root.GetProperty("meanings")[0].GetProperty("definitions")[i].GetProperty("example").GetString()}\n"; // Append example
+                        definition += $"\n     • {root.GetProperty("meanings")[0].GetProperty("definitions")[i].GetProperty("example").GetString()}\n";
+                        // Append example
                     }
-                    catch // Do nothing if no example is found
-                    {
-                    }
+                    catch { } // Do nothing if no example is found
                 }
                 if (definition.Length == 0) // Return error if no definitions are found for that word
                 {

@@ -20,6 +20,8 @@ namespace NEA_Project__Word_Game_
 
             maxWordLength = maximumWordLength;
 
+            // Setting each element in the options interface to reflect the player's configured settings
+
             if (settings[0] == "true")
             {
                 PromptRootOption.Checked = true;
@@ -117,7 +119,9 @@ namespace NEA_Project__Word_Game_
                     break;
             }
         }
-        public string GetPromptRootOption() // Boolean Option
+
+        // Methods retrieving the data stored in each UI element:
+        public string GetPromptRootOption()
         {
             if (PromptRootOption.Checked)
             {
@@ -128,21 +132,20 @@ namespace NEA_Project__Word_Game_
                 return "false";
             }
         }
-        public string GetMinPromptLength() // String Option
+        public string GetMinPromptLength()
         {
             return PromptMinLengthOptionText.Text;
         }
-        public string GetMaxPromptLength() // String Option
+        public string GetMaxPromptLength()
         {
             return PromptMaxLengthOptionText.Text;
         }
-        public string GetMinInputLength() // String Option
+        public string GetMinInputLength()
         {
             return InputLengthOptionText.Text;
         }
         public string GetSelectedPromptDictionary()
         {
-
             return PromptSelectionDatabase.SelectedIndex.ToString();
         }
         public string GetSelectedAllDictionary()
@@ -155,29 +158,17 @@ namespace NEA_Project__Word_Game_
         }
         public string GetTimerOption()
         {
-            if (EnableTimerOption.Checked)
-            {
-                return "true";
-            }
-            else
-            {
-                return "false";
-            }
-        } // Boolean Option
-        public string GetTimerLength() // String Option
+            if (EnableTimerOption.Checked) { return "true"; }
+            else { return "false"; }
+        }
+        public string GetTimerLength()
         {
             return TimerLength.Text;
         }
         public string GetDynamicTimerOption()
         {
-            if (DynamicTimerOption.Checked)
-            {
-                return "true";
-            }
-            else
-            {
-                return "false";
-            }
+            if (DynamicTimerOption.Checked) { return "true"; }
+            else { return "false"; }
         }
         public string GetTimerIncrement()
         {
@@ -185,25 +176,13 @@ namespace NEA_Project__Word_Game_
         }
         public string GetStringModeOption()
         {
-            if (StringModeOption.Checked)
-            {
-                return "true";
-            }
-            else
-            {
-                return "false";
-            }
-        } // Boolean Option
+            if (StringModeOption.Checked) { return "true"; }
+            else { return "false"; }
+        }
         public string GetRandomModeOption()
         {
-            if (RandomModeOption.Checked)
-            {
-                return "true";
-            }
-            else
-            {
-                return "false";
-            }
+            if (RandomModeOption.Checked) { return "true"; }
+            else { return "false"; }
         }
         private void PromptMinLengthOptionText_TextChanged(object sender, EventArgs e)
         {

@@ -34,7 +34,10 @@ namespace NEA_Project__Word_Game_
         }
         public bool Root(string word)
         {
-            string[] prefixes = { "un", "de", "in", "ab", "im", "re", "bi", "co", "il", "ex", "pro", "hyp", "dys", "dis", "neo", "non", "mal", "sub", "pre", "mis", "equi", "mega", "mono", "over", "tele", "poly", "anti", "super", "hydro" };
+            string[] prefixes = {"un", "de", "in", "ab", "im", "re", "bi", "co",
+                "il", "ex", "pro", "hyp", "dys", "dis", "neo", "non", "mal", "sub",
+                "pre", "mis", "equi", "mega", "mono", "over", "tele", "poly", "anti",
+                "super", "hydro" };
             foreach (string prefix in prefixes)
             {
                 if (word.Substring(0, prefix.Length) == prefix)
@@ -43,7 +46,9 @@ namespace NEA_Project__Word_Game_
                 }
             }
 
-            string[] suffixes = { "s", "ly", "ed", "er", "ic", "ae", "al", "ty", "um", "er", "ize", "ive", "ion", "ble", "ing", "ise", "ate", "ite", "ent", "ify", "ism", "ness", "ance", "esque" };
+            string[] suffixes = { "s", "ly", "ed", "er", "ic", "ae", "al", "ty",
+                "um", "er", "ize", "ive", "ion", "ble", "ing", "ise", "ate", "ite",
+                "ent", "ify", "ism", "ness", "ance", "esque" };
             foreach (string suffix in suffixes)
             {
                 if (word.Substring(word.Length - suffix.Length, suffix.Length) == suffix)
