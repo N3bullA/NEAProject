@@ -10,14 +10,19 @@ namespace NEA_Project__Word_Game_
     {
         public PossibleWordList(string filename, string prompt, int minInputLength, string stringModeActive, char lastInputLetter) : base(filename)
         {
+            string line = string.Empty;
+            List<string> tempList = new List<string>();
+
             using (StreamReader sr = new StreamReader(filename))
             {
                 while ((line = sr.ReadLine()) != null)
                 {
                     line = line.ToLower();
                     if (line != "" && !ContainsNonLetters(line) && PossibleWord(line, prompt) && line.Length >= minInputLength && line != prompt)
+                        // Selection to ensure all words fit the settings configuration and the prompt
                     {
                         if (stringModeActive == "true" && line[0] != lastInputLetter && lastInputLetter != '0')
+                            // Extra selection for when String Mode is active
                         {
                         }
                         else
@@ -32,7 +37,7 @@ namespace NEA_Project__Word_Game_
             MergeSort(words);
         }
 
-        public bool PossibleWord(string target, string prompt)
+        public bool PossibleWord(string target, string prompt) // Ensures each word uses only letters found in the prompt
         {
             int index = 0;
             int[] usedChars = new int[prompt.Length];

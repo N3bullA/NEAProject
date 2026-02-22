@@ -8,21 +8,20 @@ namespace NEA_Project__Word_Game_
 {
     public class List
     {
-        protected string line = string.Empty;
         private int index;
         protected int maxWordLength = 0;
-
-        protected Random rnd = new Random();
         protected string[] words;
-        protected List<string> tempList = new List<string>();
 
         public List(string filename)
         {
-            using (StreamReader sr = new StreamReader(filename))
+            string line = string.Empty;
+            List<string> tempList = new List<string>();
+
+            using (StreamReader sr = new StreamReader(filename)) // Reading the text file
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line != "" && !ContainsNonLetters(line.ToLower()))
+                    if (line != "" && !ContainsNonLetters(line.ToLower())) // Only add words if they don't have non-letter characters
                     {
                         tempList.Add(line.ToLower());
                         if (line.Length > maxWordLength)
@@ -37,39 +36,28 @@ namespace NEA_Project__Word_Game_
 
             MergeSort(words);
         }
-        public string GetWord(int index)
+        public string GetWord(int index) // Returns the word at the specified index
         {
             return words[index];
         }
-        public string[] GetWordChars(int index)
+        public void RollRandomIndex() // Rolls a random index in the array to return for fetching the prompt
         {
-            List<string> tempList = new List<string>();
-
-            for (int i = 0; i < words[index].Length; i++)
-            {
-                tempList.Add(words[index][i].ToString());
-            }
-            string[] characters = tempList.ToArray();
-
-            return characters;
-        }
-        public void RollRandomIndex()
-        {
+            Random rnd = new Random();
             index = rnd.Next(0, words.Length);
         }
-        public int GetIndex()
+        public int GetIndex() // Returns the currently selected index
         {
             return index;
         }
-        public int GetWordCount()
+        public int GetWordCount() // Returns the size of the word list
         {
             return words.Length;
         }
-        public int GetMaximumWordLength()
+        public int GetMaximumWordLength() // Returns the length of the longest word in the list
         {
             return maxWordLength;
         }
-        public bool ContainsNonLetters(string word)
+        public bool ContainsNonLetters(string word) // Returns whether a queried word contains a non-letter character
         {
             for (int i = 0; i < word.Length; i++)
             {
@@ -80,12 +68,11 @@ namespace NEA_Project__Word_Game_
             }
             return false;
         }
-        // Merge Sort - Dividing arrays in two
-        public static void MergeSort(string[] words)
+        public static void MergeSort(string[] words) // Merge Sort - Dividing arrays in two
         {
             if (words.Length < 2)
             {
-                return;
+                return; // Return if the array only contains one element
             }
             else
             {
@@ -95,15 +82,15 @@ namespace NEA_Project__Word_Game_
                 string[] rightHalf = new string[words.Length - midpoint];
                 Array.Copy(words, midpoint, rightHalf, 0, words.Length - midpoint);
 
+                // Recursion - splitting up the newly split arrays further
+
                 MergeSort(leftHalf);
                 MergeSort(rightHalf);
 
                 Merge(words, leftHalf, rightHalf);
             }
-        }
-
-        // Merge Sort - Merging two arrays into one
-        public static void Merge(string[] words, string[] leftHalf, string[] rightHalf)
+        } 
+        public static void Merge(string[] words, string[] leftHalf, string[] rightHalf) // Merge Sort - Merging two arrays into one
         {
             int index1 = 0;
             int index2 = 0;

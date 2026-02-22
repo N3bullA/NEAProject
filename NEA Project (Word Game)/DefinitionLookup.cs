@@ -24,6 +24,7 @@ namespace NEA_Project__Word_Game_
                 string definition = string.Empty;
 
                 for (int i = 0; i < root.GetProperty("meanings").GetArrayLength(); i++)
+                    // Ensuring more areas of the definition list get covered
                 {
                     definition += $"{root.GetProperty("meanings")[i].GetProperty("partOfSpeech").GetString()}\n";
 

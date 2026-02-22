@@ -10,12 +10,17 @@ namespace NEA_Project__Word_Game_
     {
         public PromptWordList(string filename, string rootWords, int minimumLength, int maximumLength) : base(filename)
         {
+            string line = string.Empty;
+            List<string> tempList = new List<string>();
+
             using (StreamReader sr = new StreamReader(filename))
             {
                 while ((line = sr.ReadLine()) != null)
                 {
                     line = line.ToLower();
                     if (line != "" && line.Length >= minimumLength && line.Length <= maximumLength && !ContainsNonLetters(line))
+                       // Ensures the word fits the criteria outlined by the current settings configuration
+                       // (i.e. between the specified prompt length range)
                     {
                         if (rootWords == "true" && !Root(line))
                         {
@@ -32,7 +37,7 @@ namespace NEA_Project__Word_Game_
 
             MergeSort(words);
         }
-        public bool Root(string word)
+        public bool Root(string word) // Omits any word that uses any of the listed prefixes/suffixes
         {
             string[] prefixes = {"un", "de", "in", "ab", "im", "re", "bi", "co",
                 "il", "ex", "pro", "hyp", "dys", "dis", "neo", "non", "mal", "sub",

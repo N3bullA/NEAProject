@@ -154,9 +154,9 @@ namespace NEA_Project__Word_Game_
         }
         private void GuessSubmitted()
         {
-            if (ValidInput(GuessBox.Text.ToLower(),
-                    promptWords.GetWordChars(promptWords.GetIndex()),
-                    Convert.ToInt32(gameSettings[3]), gameSettings[11]) == "true") 
+            if (ValidInput(GuessBox.Text.ToLower(),                
+                    Convert.ToInt32(gameSettings[3]),
+                    gameSettings[11]) == "true") 
                     // Add the word to the word list and increment the score if the input is valid
             {
                 ErrorText.Text = string.Empty;
@@ -195,8 +195,8 @@ namespace NEA_Project__Word_Game_
             else // Display the appropriate error message
             {
                 ErrorText.Text = ValidInput(GuessBox.Text.ToLower(),
-                    promptWords.GetWordChars(promptWords.GetIndex()),
-                    Convert.ToInt32(gameSettings[3]), gameSettings[11]);
+                    Convert.ToInt32(gameSettings[3]), 
+                    gameSettings[11]);
             }
             GuessBox.Text = string.Empty;
         }
@@ -408,7 +408,7 @@ namespace NEA_Project__Word_Game_
                 ScoreDisplay.Text = ScoreFormat(Convert.ToInt32(gameSettings[6]), gameSettings[11], gameSettings[12]);
             }
         }
-        private string ValidInput(string input, string[] characters, int minInputLength, string stringModeActive) // Input validation algorithm
+        private string ValidInput(string input, int minInputLength, string stringModeActive) // Input validation algorithm
         {
             int validationIndex = 0;
             int[] usedIndexes = new int[prompt.Length];
@@ -452,7 +452,7 @@ namespace NEA_Project__Word_Game_
 
                 for (int j = 0; j < prompt.Length; j++)
                 {
-                    if (input[i].ToString() == characters[j] && usedIndexes[j] != 1)
+                    if (input[i].ToString() == prompt[j].ToString() && usedIndexes[j] != 1)
                     {
                         validationIndex++;
                         usedIndexes[j] = 1;
@@ -542,7 +542,7 @@ namespace NEA_Project__Word_Game_
 
             return false;
         }
-        static async Task GetDefinition(string word)
+        static async Task GetDefinition(string word) // Fetches the selected word's definition and displays it
         {
             DefinitionLookup lookup = new DefinitionLookup();
             MessageBox.Show(await lookup.GetDefinitionAsync(word));

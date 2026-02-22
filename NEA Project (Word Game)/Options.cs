@@ -39,11 +39,25 @@ namespace NEA_Project__Word_Game_
                 TimerLengthLabel.Enabled = true;
             }
 
+            else
+            {
+                TimerLength.Enabled = false;
+                TimerLengthLabel.Enabled = false;
+                DynamicTimerOption.Enabled = false;
+                TimerIncrement.Enabled = false;
+                TimerIncrementLabel.Enabled = false;
+            }
+
             TimerLength.Text = settings[8];
 
             if (settings[9] == "true")
             {
                 DynamicTimerOption.Checked = true;
+            }
+            else
+            {
+                TimerIncrement.Enabled = false;
+                TimerIncrementLabel.Enabled = false;
             }
 
             TimerIncrement.Text = settings[10];
@@ -51,10 +65,16 @@ namespace NEA_Project__Word_Game_
             if (settings[11] == "true")
             {
                 StringModeOption.Checked = true;
+                RandomModeOption.Enabled = false;
+                ScoreFormatSelection.Enabled = false;
+                ScoreFormattingLabel.Enabled = false;
             }
             if (settings[12] == "true")
             {
                 RandomModeOption.Checked = true;
+                StringModeOption.Enabled = false;
+                ScoreFormatSelection.Enabled = false;
+                ScoreFormattingLabel.Enabled = false;
             }
 
             ErrorTextPromptLength.Text = "";
