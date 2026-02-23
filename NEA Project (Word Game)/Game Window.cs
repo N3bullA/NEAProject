@@ -20,6 +20,9 @@ namespace NEA_Project__Word_Game_
         public int score = 0;
         public string[] fileSettings = new string[12];
         public string[] gameSettings = new string[13];
+
+        // Learnt using lists to create arrays of unknown length using:
+        // https://stackoverflow.com/a/4078650
         public List<string> tempList = new List<string>();
 
         public GameWindow()
@@ -79,6 +82,8 @@ namespace NEA_Project__Word_Game_
         private void SetOptions()
         {
             NewPromptWords();
+
+            // Learnt using DialogResult using: https://www.youtube.com/watch?v=D5xUSF2KAhE
             Options optionsForm = new Options(fileSettings, promptWords.GetMaximumWordLength());
             DialogResult input = optionsForm.ShowDialog();
             if (input == DialogResult.Yes)
@@ -142,6 +147,7 @@ namespace NEA_Project__Word_Game_
             }
         }
         private void GuessBox_KeyDown(object sender, KeyEventArgs e) // Detects if the player presses ENTER when typing
+                                                                     // Learnt this through: https://www.youtube.com/watch?v=PSFESmqVtRE
         {
             if (e.KeyValue == (char)Keys.Enter)
             {
@@ -564,6 +570,8 @@ namespace NEA_Project__Word_Game_
             definePrompt = false;
         }
         private void Timer_Tick(object sender, EventArgs e) // Count down one second every 1000 ticks
+                                                            // Learnt to do this using: https://www.youtube.com/watch?v=gxkdJRNym-g
+                                                            // and https://www.youtube.com/watch?v=YX3zXHhzg4g
         {
             seconds--;
             if (seconds <= -1)
