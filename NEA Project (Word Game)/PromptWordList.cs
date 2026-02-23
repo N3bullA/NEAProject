@@ -8,7 +8,13 @@ namespace NEA_Project__Word_Game_
 {
     public class PromptWordList : List
     {
+        int maxWordLength = 0;
         public PromptWordList(string filename, string rootWords, int minimumLength, int maximumLength) : base(filename)
+        {
+            ReadFile(filename, rootWords, minimumLength, maximumLength);
+            MergeSort(words);
+        }
+        public void ReadFile(string filename, string rootWords, int minimumLength, int maximumLength)
         {
             string line = string.Empty;
             List<string> tempList = new List<string>();
@@ -19,8 +25,8 @@ namespace NEA_Project__Word_Game_
                 {
                     line = line.ToLower();
                     if (line != "" && line.Length >= minimumLength && line.Length <= maximumLength && !ContainsNonLetters(line))
-                       // Ensures the word fits the criteria outlined by the current settings configuration
-                       // (i.e. between the specified prompt length range)
+                    // Ensures the word fits the criteria outlined by the current settings configuration
+                    // (i.e. between the specified prompt length range)
                     {
                         if (rootWords == "true" && !Root(line))
                         {
@@ -28,14 +34,20 @@ namespace NEA_Project__Word_Game_
                         else
                         {
                             tempList.Add(line);
+                            if (line.Length > maxWordLength)
+                            {
+                                maxWordLength = line.Length;
+                            }
                         }
-                    }                  
+                    }
                 }
                 words = tempList.ToArray();
                 tempList.Clear();
             }
-
-            MergeSort(words);
+        }
+        public int GetMaximumWordLength()
+        {
+            return maxWordLength;
         }
         public bool Root(string word) // Omits any word that uses any of the listed prefixes/suffixes
         {

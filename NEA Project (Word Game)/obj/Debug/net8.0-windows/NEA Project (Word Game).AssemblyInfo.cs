@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NEA Project (Word Game)")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+727800249d86de6e17f0a1839911eebf30021f72")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55374fa50346ba4414d75996eac5c37c1a496c24")]
 [assembly: System.Reflection.AssemblyProductAttribute("NEA Project (Word Game)")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NEA Project (Word Game)")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

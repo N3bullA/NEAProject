@@ -9,10 +9,14 @@ namespace NEA_Project__Word_Game_
     public class List
     {
         private int index;
-        protected int maxWordLength = 0;
         protected string[] words;
 
         public List(string filename)
+        {
+            ReadFile(filename);
+            MergeSort(words);
+        }
+        protected virtual void ReadFile(string filename)
         {
             string line = string.Empty;
             List<string> tempList = new List<string>();
@@ -24,17 +28,11 @@ namespace NEA_Project__Word_Game_
                     if (line != "" && !ContainsNonLetters(line.ToLower())) // Only add words if they don't have non-letter characters
                     {
                         tempList.Add(line.ToLower());
-                        if (line.Length > maxWordLength)
-                        {
-                            maxWordLength = line.Length;
-                        }
                     }
                 }
                 words = tempList.ToArray();
                 tempList.Clear();
             }
-
-            MergeSort(words);
         }
         public string GetWord(int index) // Returns the word at the specified index
         {
@@ -52,10 +50,6 @@ namespace NEA_Project__Word_Game_
         public int GetWordCount() // Returns the size of the word list
         {
             return words.Length;
-        }
-        public int GetMaximumWordLength() // Returns the length of the longest word in the list
-        {
-            return maxWordLength;
         }
         public bool ContainsNonLetters(string word) // Returns whether a queried word contains a non-letter character
         {
